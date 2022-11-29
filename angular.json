@@ -5,7 +5,24 @@
   "projects": {
     "zeus-client": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "css",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,6 +30,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "@ckeditor/ckeditor5-build-classic"
+            ],
             "outputPath": "dist/zeus-client",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,9 +44,26 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/slick-carousel/slick/slick.scss",
+              "node_modules/slick-carousel/slick/slick-theme.scss",
+              "src/assets/css/vendor/font-awesome.css",
+              "src/assets/css/vendor/flaticon/flaticon.css",
+              "src/assets/css/vendor/bootstrap.min.css",
+              "src/assets/css/vendor/jquery-ui.min.css",
+              "src/assets/css/vendor/sal.css",
+              "src/assets/css/vendor/magnific-popup.css",
+              "src/assets/css/vendor/base.css",
+              "src/assets/css/style.min.css",
+              "src/assets/css/app.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,8 +129,11 @@
             ],
             "styles": [
               "src/styles.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+             
+            ]
           }
         }
       }

@@ -1,0 +1,89 @@
+/* hero */
+.main-slider-style-5 .slider-box-wrap {
+  padding: 30px 100px;
+}
+
+.main-slider-content {
+  position: absolute;
+  padding: 100px;
+  z-index: 9;
+}
+
+.main-slider-style-5 .main-slider-thumb {
+  margin-left: 0;
+}
+
+.main-slider-style-5 .slider-box-wrap .slider-activation-two {
+  padding: 30px;
+}
+
+.main-slider-style-5 .slider-box-wrap .single-slide {
+  padding: 0;
+  display: block;
+}
+
+.main-slider-style-5 .main-slider-thumb img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.slick-slide.slick-current .main-slider-content .title {
+  color: white;
+}
+
+.main-slider-thumb {
+  position: relative;
+}
+
+#overlay {
+  position: absolute; /* Sit on top of the page content */
+  display: block; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.2); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.main-slider-style-5 .slider-box-wrap .axil-slick-dots .slick-dots {
+  bottom: 50px;
+  right: 60px;
+}
+
+.slick-dots {
+  width: inherit;
+}
+
+.axil-submenu-header {
+  cursor: auto;
+  color: var(--color-secondary) !important;
+}
+
+.mainmenu > .menu-item-has-children .axil-submenu {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+  min-width: 1110px;
+  left: -312px;
+}
+
+.mainmenu > .menu-item-has-children .axil-submenu .axil-submenu-header {
+  padding: 5px 15px;
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+.mainmenu > .menu-item-has-children .axil-submenu ul {
+  padding: 0;
+}
+
+.axil-product .thumbnail {
+  padding: 0;
+  border: 0;
+}

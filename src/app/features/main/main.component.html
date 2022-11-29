@@ -1,0 +1,36 @@
+<div class="sticky-header">
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">
+      You are using an <strong>outdated</strong> browser. Please
+      <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+      your experience and security.
+    </p>
+  <![endif]-->
+  <a href="#top" class="back-to-top" id="backto-top"
+    ><i class="fal fa-arrow-up"></i
+  ></a>
+
+  <!-- Start Header -->
+  <app-header></app-header>
+  <!-- End Header -->
+
+  <main class="main-wrapper">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Start Footer Area  -->
+  <app-footer></app-footer>
+  <!-- End Footer Area  -->
+
+  <!-- Product Quick View Modal Start -->
+
+  <!-- Product Quick View Modal End -->
+
+  <!-- Header Search Modal Start -->
+  <app-header-search></app-header-search>
+  <app-cart-dropdown></app-cart-dropdown>
+  <!-- Header Search Modal End -->
+
+  <!-- Cart Dropdown Modal Start -->
+  <!-- Cart Dropdown Modal End -->
+</div>
