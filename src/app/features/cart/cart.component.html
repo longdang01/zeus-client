@@ -1,0 +1,411 @@
+<!-- Start Cart Area  -->
+<div class="axil-product-cart-area axil-section-gap">
+  <div class="container">
+    <div class="axil-product-cart-wrap">
+      <div class="product-table-heading">
+        <h4 class="title">Giỏ hàng</h4>
+        <!-- <a href="#" class="cart-clear">Clear Shoping Cart</a> -->
+      </div>
+      <div class="table-responsive">
+        <table class="table axil-product-table axil-cart-table mb--40">
+          <thead>
+            <tr>
+              <th scope="col" class="product-thumbnail">Tên sản phẩm</th>
+              <th scope="col" class="product-title"></th>
+              <th scope="col" class="product-price">Phân loại</th>
+              <th scope="col" class="product-quantity">Đơn giá</th>
+              <th scope="col" class="product-subtotal">Thành tiền</th>
+              <th scope="col" class="product-remove">Mua</th>
+              <th scope="col" class="product-remove">Sửa</th>
+              <th scope="col" class="product-remove">Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cartDetail of cart?.cartDetails">
+              <td class="product-thumbnail">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/detail']"
+                  [queryParams]="{
+                    product: cartDetail.product._id,
+                    name: cartDetail.product.productName | slugify
+                  }"
+                  ><img
+                    [src]="cartDetail.color.images[0].picture"
+                    alt="Digital Product"
+                /></a>
+              </td>
+              <td class="product-title">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/detail']"
+                  [queryParams]="{
+                    product: cartDetail.product._id,
+                    name: cartDetail.product.productName | slugify
+                  }"
+                  >{{ cartDetail.product.productName }}</a
+                >
+              </td>
+              <td>
+                {{ cartDetail.color.colorName }}/{{
+                  cartDetail.size.sizeName
+                }}/x{{ cartDetail.quantity }}
+              </td>
+              <td class="product-price" data-title="Price">
+                <span
+                  *ngIf="!cartDetail.color.sales[0]"
+                  class="price current-price"
+                  >{{
+                    cartDetail.color.price | currency : "VND" : "symbol"
+                  }}</span
+                >
+
+                <span
+                  *ngIf="
+                    cartDetail.color.sales[0] &&
+                    cartDetail.color.sales[0].symbol == 'K'
+                  "
+                  class="price current-price"
+                  >{{
+                    cartDetail.color.price - cartDetail.color.sales[0].value
+                      | currency : "VND" : "symbol"
+                  }}</span
+                >
+                <span
+                  *ngIf="
+                    cartDetail.color.sales[0] &&
+                    cartDetail.color.sales[0].symbol == '%'
+                  "
+                  class="price current-price"
+                  >{{
+                    cartDetail.color.price *
+                      ((100 - cartDetail.color.sales[0].value) / 100)
+                      | currency : "VND" : "symbol"
+                  }}</span
+                >
+                <span
+                  *ngIf="cartDetail.color.sales[0]"
+                  class="price old-price"
+                  >{{
+                    cartDetail.color.price | currency : "VND" : "symbol"
+                  }}</span
+                >
+              </td>
+              <!-- 
+              <td class="product-quantity" data-title="Qty">
+                <div class="pro-qty">
+                  <input type="number" class="quantity-input" value="1" />
+                </div>
+              </td> -->
+              <td class="product-subtotal" data-title="Subtotal">
+                <span *ngIf="!cartDetail.color.sales[0]" class="">{{
+                  cartDetail.color.price * cartDetail.quantity
+                    | currency : "VND" : "symbol"
+                }}</span>
+                <span
+                  *ngIf="
+                    cartDetail.color.sales[0] &&
+                    cartDetail.color.sales[0].symbol == 'K'
+                  "
+                  class=""
+                  >{{
+                    (cartDetail.color.price - cartDetail.color.sales[0].value) *
+                      cartDetail.quantity | currency : "VND" : "symbol"
+                  }}</span
+                >
+                <span
+                  *ngIf="
+                    cartDetail.color.sales[0] &&
+                    cartDetail.color.sales[0].symbol == '%'
+                  "
+                  class=""
+                  >{{
+                    cartDetail.color.price *
+                      ((100 - cartDetail.color.sales[0].value) / 100) *
+                      cartDetail.quantity | currency : "VND" : "symbol"
+                  }}</span
+                >
+              </td>
+              <td class="product-remove">
+                <input
+                  id="checkbox-buy"
+                  type="checkbox"
+                  class="remove-wishlist"
+                  [(ngModel)]="cartDetail.isActive"
+                  [checked]="cartDetail.isActive == 1 ? true : false"
+                  (change)="updateCartDetail(cartDetail)"
+                />
+              </td>
+              <td class="product-remove">
+                <a
+                  href="javascript:;"
+                  class="remove-wishlist updateCart-dropdown-btn"
+                  (click)="handleOpenUpdate(cartDetail._id)"
+                >
+                  <i class="fa-regular fa-pen-to-square"></i
+                ></a>
+              </td>
+              <td class="product-remove">
+                <a
+                  href="javascript:;"
+                  class="remove-wishlist"
+                  (click)="deleteCartDetail(cartDetail._id)"
+                  ><i class="fal fa-times"></i
+                ></a>
+              </td>
+            </tr>
+            <!-- <tr>
+              <td class="product-remove">
+                <a href="#" class="remove-wishlist"
+                  ><i class="fal fa-times"></i
+                ></a>
+              </td>
+              <td class="product-thumbnail">
+                <a href="single-product-2.html"
+                  ><img
+                    src="./assets/images/product/electric/product-02.png"
+                    alt="Digital Product"
+                /></a>
+              </td>
+              <td class="product-title">
+                <a href="single-product-2.html">Gradient Light Keyboard</a>
+              </td>
+              <td class="product-price" data-title="Price">
+                <span class="currency-symbol">$</span>124.00
+              </td>
+              <td class="product-quantity" data-title="Qty">
+                <div class="pro-qty">
+                  <input type="number" class="quantity-input" value="1" />
+                </div>
+              </td>
+              <td class="product-subtotal" data-title="Subtotal">
+                <span class="currency-symbol">$</span>275.00
+              </td>
+            </tr>
+            <tr>
+              <td class="product-remove">
+                <a href="#" class="remove-wishlist"
+                  ><i class="fal fa-times"></i
+                ></a>
+              </td>
+              <td class="product-thumbnail">
+                <a href="single-product-3.html"
+                  ><img
+                    src="./assets/images/product/electric/product-03.png"
+                    alt="Digital Product"
+                /></a>
+              </td>
+              <td class="product-title">
+                <a href="single-product-3.html">HD CC Camera</a>
+              </td>
+              <td class="product-price" data-title="Price">
+                <span class="currency-symbol">$</span>124.00
+              </td>
+              <td class="product-quantity" data-title="Qty">
+                <div class="pro-qty">
+                  <input type="number" class="quantity-input" value="1" />
+                </div>
+              </td>
+              <td class="product-subtotal" data-title="Subtotal">
+                <span class="currency-symbol">$</span>275.00
+              </td>
+              <td class="product-subtotal" data-title="Subtotal">
+                <input type="checkbox" name="" id="" />
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+      <!-- <div class="cart-update-btn-area">
+        <div class="input-group product-cupon">
+          <input placeholder="Enter coupon code" type="text" />
+          <div class="product-cupon-btn">
+            <button type="submit" class="axil-btn btn-outline">Apply</button>
+          </div>
+        </div>
+        <div class="update-btn">
+          <a href="#" class="axil-btn btn-outline">Update Cart</a>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-xl-5 col-lg-7 offset-xl-7 offset-lg-5">
+          <div class="axil-order-summery mt--80">
+            <h5 class="title mb--20">Trong giỏ hàng</h5>
+            <div class="summery-table-wrap">
+              <table class="table summery-table mb--30">
+                <tbody>
+                  <tr class="order-subtotal">
+                    <td>Đang Mua</td>
+                    <td>{{ totalBuy }}</td>
+                  </tr>
+                  <!-- <tr class="order-shipping">
+                    <td>Shipping</td>
+                    <td>
+                      <div class="input-group">
+                        <input
+                          type="radio"
+                          id="radio1"
+                          name="shipping"
+                          checked
+                        />
+                        <label for="radio1">Free Shippping</label>
+                      </div>
+                      <div class="input-group">
+                        <input type="radio" id="radio2" name="shipping" />
+                        <label for="radio2">Local: $35.00</label>
+                      </div>
+                      <div class="input-group">
+                        <input type="radio" id="radio3" name="shipping" />
+                        <label for="radio3">Flat rate: $12.00</label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="order-tax">
+                    <td>State Tax</td>
+                    <td>$8.00</td>
+                  </tr> -->
+                  <tr class="order-total">
+                    <td>Thành tiền</td>
+                    <td class="order-total-amount">
+                      {{ totalPrice | currency : "VND" : "symbol" }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <a
+              routerLink="/checkout"
+              href="javascript:;"
+              class="axil-btn btn-bg-primary checkout-btn"
+              >Tiến hành thanh toán</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Cart Area  -->
+
+<div class="header-search-modal" id="updateCart-dropdown">
+  <button class="card-close sidebar-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="header-search-wrap" style="width: 600px; height: 300px">
+    <div
+      class="card-header"
+      style="
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: black;
+      "
+    >
+      Phân Loại Sản Phẩm
+    </div>
+    <div class="card-body">
+      <div style="display: grid; grid-template-columns: 1fr 2fr 1fr">
+        <!-- Start Product Variation  -->
+        <div class="product-variation" style="margin-bottom: 30px">
+          <h6
+            class="title"
+            style="margin-bottom: 5px; font-size: 15px; font-weight: 700"
+          >
+            Màu sắc:
+          </h6>
+          <div class="color-variant-wrapper">
+            <ul class="color-variant" style="margin-top: 0">
+              <li
+                *ngFor="let color of cartDetail?.product?.colors; let i = index"
+                [class.active]="color._id == selectedColor?._id"
+                (click)="changeColor(i, color)"
+              >
+                <span
+                  [ngStyle]="
+                    color._id == selectedColor?._id
+                      ? { 'border-color': color.hex }
+                      : null
+                  "
+                >
+                  <span
+                    class="color"
+                    [ngStyle]="{ 'background-color': color.hex }"
+                  ></span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- End Product Variation  -->
+
+        <!-- Start Product Variation  -->
+        <div
+          class="product-variation product-size-variation"
+          style="margin-bottom: 30px"
+        >
+          <h6
+            class="title"
+            style="margin-bottom: 5px; font-size: 15px; font-weight: 700"
+          >
+            Kích cỡ:
+          </h6>
+          <ul class="range-variant">
+            <li
+              *ngFor="let size of selectedColor?.sizes; let i = index"
+              [class.activeSize]="size._id == selectedSize._id"
+              (click)="changeSize(i, size)"
+            >
+              {{ size.sizeName }}
+            </li>
+          </ul>
+        </div>
+        <!-- End Product Variation  -->
+
+        <!-- Start Quentity Action  -->
+        <div>
+          <h6
+            class="title"
+            style="margin-bottom: 5px; font-size: 15px; font-weight: 700"
+          >
+            Số lượng:
+          </h6>
+          <div class="pro-qty">
+            <input
+              id="qty"
+              type="text"
+              value="1"
+              [(ngModel)]="cartDetail.quantity"
+            />
+          </div>
+        </div>
+        <!-- End Quentity Action  -->
+      </div>
+
+      <div class="">
+        <span style="font-weight: 700">Tình trạng:</span>
+        <span [class]="selectedSize?.quantity > 0 ? 'available' : 'sold'">
+          {{
+            selectedSize?.quantity > 0
+              ? "Còn " + selectedSize?.quantity + " sản phẩm"
+              : "Hết hàng"
+          }}
+        </span>
+        <!-- <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i> -->
+      </div>
+    </div>
+    <div class="card-footer">
+      <div style="text-align: end">
+        <button
+          class="btn btn-primary btn-updateCartDetail sidebar-close"
+          (click)="updateCartDetail(cartDetail)"
+        >
+          Cập nhật
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

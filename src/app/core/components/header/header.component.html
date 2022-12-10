@@ -11,10 +11,10 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Viet Nam
+                Việt Nam
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Viet Nam</a></li>
+                <li><a class="dropdown-item" href="#">Việt Nam</a></li>
                 <!-- <li><a class="dropdown-item" href="#">Arabic</a></li>
                 <li><a class="dropdown-item" href="#">Spanish</a></li> -->
               </ul>
@@ -39,9 +39,16 @@
         <div class="col-lg-6 col-sm-6 col-12">
           <div class="header-top-link">
             <ul class="quick-link">
-              <li><a href="#">Giúp đỡ</a></li>
-              <li><a href="sign-up.html">Đăng ký</a></li>
-              <li><a href="sign-in.html">Đăng nhập</a></li>
+              <li><a href="#">Giúp Đỡ</a></li>
+              <li *ngIf="!customer">
+                <a href="" routerLink="/register">Đăng Ký</a>
+              </li>
+              <li *ngIf="!customer">
+                <a href="" routerLink="/login">Đăng Nhập</a>
+              </li>
+              <li *ngIf="customer" class="header__greeting">
+                <a href="javascript:;">Hello, {{ customer.customerName }} </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -54,10 +61,10 @@
     <div class="container">
       <div class="header-navbar">
         <div class="header-brand">
-          <a href="index.html" class="logo logo-dark">
+          <a href="" routerLink="/" class="logo logo-dark">
             <img src="assets/images/logo/logo.png" alt="Site Logo" />
           </a>
-          <a href="index.html" class="logo logo-light">
+          <a href="" routerLink="/" class="logo logo-light">
             <img src="assets/images/logo/logo-light.png" alt="Site Logo" />
           </a>
         </div>
@@ -68,14 +75,14 @@
               <i class="fas fa-times"></i>
             </button>
             <div class="mobile-nav-brand">
-              <a href="index.html" class="logo">
+              <a href="javascript:;" routerLink="/" class="logo">
                 <img src="assets/images/logo/logo.png" alt="Site Logo" />
               </a>
             </div>
             <ul class="mainmenu">
               <!-- class="menu-item-has-children" -->
               <li>
-                <a href="#">Trang chủ</a>
+                <a href="javascript:;" routerLink="/">Trang chủ</a>
                 <!-- <ul class="axil-submenu">
                   <li><a href="index-1.html">Home - Electronics</a></li>
                   <li><a href="index-2.html">Home - NFT</a></li>
@@ -106,6 +113,17 @@
                             category: category._id,
                             name: category.categoryName | slugify
                           }"
+                          [class]="
+                            category._id === searchForm.category
+                              ? 'activeCategory'
+                              : ''
+                          "
+                          (click)="
+                            selectCategory(
+                              $event,
+                              'Tất cả ' + category.categoryName
+                            )
+                          "
                           >Tất cả {{ category.categoryName }}</a
                         >
                         <!-- href="/products?category={{ category._id }}&name={{
@@ -119,6 +137,14 @@
                             subCategory: subCategory._id,
                             name: subCategory.subCategoryName | slugify
                           }"
+                          [class]="
+                            subCategory._id === searchForm.subCategory
+                              ? 'activeCategory'
+                              : ''
+                          "
+                          (click)="
+                            selectCategory($event, subCategory.subCategoryName)
+                          "
                           >{{ subCategory.subCategoryName }}</a
                         >
                         <!-- href="/products?subCategory={{
@@ -213,6 +239,7 @@
                 maxlength="128"
                 placeholder="Bạn đang tìm kiếm gì?"
                 autocomplete="off"
+                readonly
               />
               <button type="submit" class="icon wooc-btn-search">
                 <i class="flaticon-magnifying-glass"></i>
@@ -228,13 +255,17 @@
               </a>
             </li>
             <li class="wishlist">
-              <a href="wishlist.html">
+              <!-- <a href="wishlist.html">
                 <i class="flaticon-heart"></i>
-              </a>
+              </a> -->
             </li>
             <li class="shopping-cart">
-              <a href="javascript:void(0)" class="cart-dropdown-btn">
-                <span class="cart-count">3</span>
+              <a
+                href="javascript:void(0)"
+                class="cart-dropdown-btn"
+                (click)="searchCart()"
+              >
+                <span class="cart-count">{{ totalCarts }}</span>
                 <i class="flaticon-shopping-cart"></i>
               </a>
             </li>
@@ -243,30 +274,61 @@
                 <i class="flaticon-person"></i>
               </a>
               <div class="my-account-dropdown">
-                <span class="title">QUICKLINKS</span>
+                <div class="my-account-dropdown__hr">
+                  <span class="title">Đến Trang</span>
+                </div>
                 <ul>
                   <li>
-                    <a href="my-account.html">My Account</a>
+                    <a
+                      *ngIf="customer"
+                      href="javascript:;"
+                      routerLink="my-account"
+                      (click)="handleUi()"
+                      >Tài Khoản Của Bạn</a
+                    >
                   </li>
                   <li>
-                    <a href="#">Initiate return</a>
+                    <a
+                      *ngIf="customer"
+                      href="javascript:;"
+                      routerLink="my-account/orders"
+                      (click)="handleUi()"
+                      >Theo dõi đơn hàng</a
+                    >
                   </li>
                   <li>
-                    <a href="#">Support</a>
+                    <a
+                      *ngIf="customer"
+                      href="javascript:;"
+                      routerLink="my-account/delivery-address"
+                      (click)="handleUi()"
+                      >Địa Chỉ Nhận Hàng</a
+                    >
+                  </li>
+                  <!-- <li>
+                    <a href="#">Hỗ trợ [chưa hoạt động]</a>
                   </li>
                   <li>
-                    <a href="#">Language</a>
-                  </li>
+                    <a href="#">Ngôn ngữ [chưa hoạt động]</a>
+                  </li> -->
                 </ul>
-                <div class="login-btn">
-                  <a href="sign-in.html" class="axil-btn btn-bg-primary"
-                    >Login</a
+                <div *ngIf="customer" class="logout-btn">
+                  <a
+                    href="javascript:;"
+                    (click)="logout()"
+                    class="axil-btn btn-bg-primary"
+                    >Đăng xuất</a
                   >
                 </div>
-                <div class="reg-footer text-center">
+                <div *ngIf="!customer" class="login-btn">
+                  <a href="" routerLink="/login" class="axil-btn btn-bg-primary"
+                    >Đăng nhập</a
+                  >
+                </div>
+                <!-- <div class="reg-footer text-center">
                   No account yet?
                   <a href="sign-up.html" class="btn-link">REGISTER HERE.</a>
-                </div>
+                </div> -->
               </div>
             </li>
             <li class="axil-mobile-toggle">
@@ -281,3 +343,5 @@
   </div>
   <!-- End Mainmenu Area -->
 </header>
+
+<app-cart-dropdown [cart]="cart" [totalCarts]="totalCarts"></app-cart-dropdown>

@@ -6,6 +6,7 @@
         "modernizr",
         "pkgd",
         "primeicons",
-        "primeng"
+        "primeng",
+        "unslick"
     ]
 }

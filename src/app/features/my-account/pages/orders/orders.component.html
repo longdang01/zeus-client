@@ -1,0 +1,353 @@
+<div class="axil-dashboard-order">
+  <div class="table-responsive">
+    <div>
+      <select
+        id="searchOrders"
+        class="form-group w-full"
+        style="background: #fff; box-shadow: 0 3px 20px #0000000b"
+        [(ngModel)]="searchOrdersStatus"
+      >
+        <!-- ng-model="searchOrd" -->
+        <option value="">Tất cả đơn hàng</option>
+        <option value="0">Đơn hàng chờ xác nhận</option>
+        <option value="1">Đơn hàng chờ lấy hàng</option>
+        <option value="2">Đơn hàng đang giao</option>
+        <option value="3">Đơn hàng đã giao</option>
+        <option value="4">Đơn hàng đã hủy</option>
+      </select>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" style="font-size: 15px; font-weight: 600">
+            Mã đơn hàng
+          </th>
+          <th scope="col" style="font-size: 15px; font-weight: 600">
+            Ngày đặt (D/M/Y)
+          </th>
+          <th scope="col" style="font-size: 15px; font-weight: 600">
+            Trạng thái
+          </th>
+          <th scope="col" style="font-size: 15px; font-weight: 600">
+            Thành tiền
+          </th>
+          <th scope="col" style="font-size: 15px; font-weight: 600">
+            Hành động
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let orders of ordersList
+              | filter
+                : {
+                    status: searchOrdersStatus
+                  };
+            let i = index
+          "
+        >
+          <th scope="row">{{ orders.ordersCode }}</th>
+          <td>
+            {{ orders.orderDate.slice(0, 10) | date : "dd/MM/yyyy" }}
+          </td>
+          <td>
+            {{
+              orders.status == 0
+                ? "Chờ xác nhận"
+                : orders.status == 1
+                ? "Chờ lấy hàng"
+                : orders.status == 2
+                ? "Đang giao"
+                : orders.status == 3
+                ? "Đã giao"
+                : orders.status == 4
+                ? "Đã hủy"
+                : ""
+            }}
+          </td>
+          <td>
+            {{ orders.total | currency : "VND" : "symbol" }} cho
+            {{ orders.ordersDetails.length }} sản phẩm
+          </td>
+          <td style="padding-right: 30px">
+            <a
+              href="javascript:;"
+              title="Xem chi tiết đơn hàng"
+              class="ordersForm-dropdown-btn"
+              (click)="getOrders(orders._id)"
+            >
+              <i class="far fa-edit"></i>
+            </a>
+            <a
+              href="javascript:;"
+              title="Hủy đơn hàng"
+              style="margin-left: 15px"
+              (click)="updateOrders(orders, 0)"
+              *ngIf="orders.status == 0 || orders.status == 1"
+              ><i class="far fa-trash"></i
+            ></a>
+            <a
+              href="javascript:;"
+              title="Hủy đơn hàng"
+              style="margin-left: 15px"
+              *ngIf="orders.status == 4"
+              (click)="updateOrders(orders, 1)"
+              ><i class="far fa-repeat"></i
+            ></a>
+            <!-- <a href="#" class="axil-btn view-btn">Chi tiết</a>
+            <a href="#" class="axil-btn view-btn">Hủy đặt</a> -->
+          </td>
+        </tr>
+        <!-- <tr>
+          <th scope="row">#6523</th>
+          <td>September 10, 2020</td>
+          <td>On Hold</td>
+          <td>$326.63 for 3 items</td>
+          <td><a href="#" class="axil-btn view-btn">View</a></td>
+        </tr>
+        <tr>
+          <th scope="row">#6523</th>
+          <td>September 10, 2020</td>
+          <td>Processing</td>
+          <td>$326.63 for 3 items</td>
+          <td><a href="#" class="axil-btn view-btn">View</a></td>
+        </tr>
+        <tr>
+          <th scope="row">#6523</th>
+          <td>September 10, 2020</td>
+          <td>Processing</td>
+          <td>$326.63 for 3 items</td>
+          <td><a href="#" class="axil-btn view-btn">View</a></td>
+        </tr>
+        <tr>
+          <th scope="row">#6523</th>
+          <td>September 10, 2020</td>
+          <td>Processing</td>
+          <td>$326.63 for 3 items</td>
+          <td><a href="#" class="axil-btn view-btn">View</a></td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="header-search-modal" id="ordersForm-dropdown">
+  <button class="card-close sidebar-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="header-search-wrap" style="width: 1000px; height: 500px">
+    <div
+      class="card-header"
+      style="
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: black;
+      "
+    >
+      Chi tiết đơn hàng
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Mã đơn hàng:</label>
+            <span>{{ ordersItem.ordersCode }}</span>
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Tên người nhận:</label>
+            <span>{{ ordersItem.deliveryAddress?.consigneeName }}</span>
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Điện thoại:</label>
+            <span>{{ ordersItem.deliveryAddress?.consigneePhone }}</span>
+
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Ngày đặt:</label>
+            <span>{{ ordersItem.orderDate | date : "dd/MM/yyyy" }}</span>
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputPassword1">Địa chỉ nhận hàng:</label>
+            <span>{{ ordersItem.deliveryAddress?.deliveryAddressName }}</span>
+
+            <!-- <input type="text" class="form-control" placeholder="0123382xxx" /> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Hình thức thanh toán:</label>
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+            <span>{{ ordersItem.payment?.paymentType }}</span>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Hình thức vận chuyển:</label>
+            <span
+              >{{ ordersItem.transport?.transportType }} [{{
+                ordersItem.transport?.fee | currency : "VND" : "symbol"
+              }}]</span
+            >
+
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-orders">
+            <label for="exampleInputEmail1">Thành tiền:</label>
+            <span>{{ ordersItem.total | currency : "VND" : "symbol" }}</span>
+
+            <!-- <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+            /> -->
+          </div>
+        </div>
+        <div class="col-lg-12" style="margin-top: 50px">
+          <div style="padding-left: 5px; font-weight: 600; margin-bottom: 20px">
+            Danh sách sản phẩm đã đặt
+          </div>
+          <table class="table table-ordersDetails">
+            <thead>
+              <tr>
+                <th scope="col" style="font-size: 15px; font-weight: 600">
+                  Sản phẩm
+                </th>
+                <th
+                  scope="col"
+                  style="font-size: 15px; font-weight: 600; text-align: center"
+                >
+                  Thành tiền (VND)
+                </th>
+                <th
+                  scope="col"
+                  style="font-size: 15px; font-weight: 600; text-align: center"
+                >
+                  Trạng thái
+                </th>
+                <th
+                  scope="col"
+                  style="font-size: 15px; font-weight: 600; text-align: right"
+                >
+                  Chú thích
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let ordersDetail of ordersItem.ordersDetails;
+                  let i = index
+                "
+              >
+                <td scope="row">
+                  <div>
+                    {{ ordersDetail.product.productName }}
+                  </div>
+                  <div style="color: grey; font-size: 13px">
+                    {{ ordersDetail.color.colorName }}/{{
+                      ordersDetail.size.sizeName
+                    }}/x{{ ordersDetail.quantity }}/{{
+                      ordersDetail.price | number
+                    }}
+                  </div>
+                </td>
+                <td style="text-align: center">
+                  {{ ordersDetail.price * ordersDetail.quantity | number }}
+                </td>
+                <td style="text-align: center">
+                  <select
+                    class="form-group"
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      background: #fff;
+                      margin-bottom: 0;
+                      box-shadow: 0 3px 20px #0000000b;
+                    "
+                    [(ngModel)]="ordersDetail.status"
+                    (change)="updateOrdersDetail(ordersDetail)"
+                  >
+                    <!-- ng-change="updateStatus(orders.id, orders)"
+                  ng-model="orders.status" -->
+                    <option
+                      value="0"
+                      [disabled]="ordersDetail.orders.status != 3"
+                    >
+                      Hoàn thành
+                    </option>
+                    <option
+                      value="1"
+                      [disabled]="ordersDetail.orders.status != 3"
+                    >
+                      Yêu cầu trả hàng/hoàn tiền
+                    </option>
+                    <option
+                      value="2"
+                      [disabled]="ordersDetail.orders.status != 3"
+                    >
+                      Yêu cầu đổi
+                    </option>
+                  </select>
+                </td>
+                <td style="text-align: right">
+                  {{
+                    !ordersDetail.note
+                      ? "(Chưa có chú thích)"
+                      : ordersDetail.note
+                  }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <!-- <div style="text-align: end">
+        <button class="btn btn-primary btn-updateDelivery sidebar-close">
+          Cập nhật
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

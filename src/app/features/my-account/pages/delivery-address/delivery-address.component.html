@@ -1,0 +1,177 @@
+<div class="axil-dashboard-address">
+  <div class="axil-dashboard-address__header">
+    <p class="notice-text">
+      Theo mặc định, các địa chỉ sau sẽ được sử dụng trên trang thanh toán.
+    </p>
+    <button
+      class="btn btn-primary deliveryAddressForm-dropdown-btn"
+      (click)="getDeliveryAddress(null)"
+    >
+      Thêm Địa Chỉ
+    </button>
+  </div>
+  <div class="row row--30">
+    <div *ngFor="let deliveryAddress of deliveryAddresses" class="col-lg-6">
+      <div class="address-info mb--40">
+        <div
+          class="addrss-header d-flex align-items-center justify-content-between"
+        >
+          <h4
+            class="title mb-0"
+            [ngClass]="deliveryAddress.isActive == 1 ? 'color-primary' : ''"
+          >
+            {{
+              deliveryAddress.isActive == 1 ? "Địa chỉ mặc định" : "Địa chỉ phụ"
+            }}
+          </h4>
+          <div>
+            <a
+              href="javascript:;"
+              class="address-edit deliveryAddressForm-dropdown-btn"
+              (click)="getDeliveryAddress(deliveryAddress._id)"
+              ><i class="far fa-edit"></i
+            ></a>
+            <a
+              href="javascript:;"
+              class="address-edit"
+              style="margin-left: 15px"
+              *ngIf="deliveryAddress.isActive == 0"
+              (click)="deleteDeliveryAddress(deliveryAddress._id)"
+              ><i class="far fa-trash"></i
+            ></a>
+          </div>
+        </div>
+        <ul class="address-details">
+          <li>Họ và tên: {{ deliveryAddress.consigneeName }}</li>
+          <!-- <li>Email: annie@example.com</li> -->
+          <li>Điện thoại: {{ deliveryAddress.consigneePhone }}</li>
+          <li class="mt--30">
+            {{ deliveryAddress.deliveryAddressName }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="col-lg-6">
+      <div class="address-info">
+        <div
+          class="addrss-header d-flex align-items-center justify-content-between"
+        >
+          <h4 class="title mb-0">Billing Address</h4>
+          <a href="#" class="address-edit"><i class="far fa-edit"></i></a>
+        </div>
+        <ul class="address-details">
+          <li>Name: Annie Mario</li>
+          <li>Email: annie@example.com</li>
+          <li>Phone: 1234 567890</li>
+          <li class="mt--30">
+            7398 Smoke Ranch Road <br />
+            Las Vegas, Nevada 89128
+          </li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div class="header-search-modal" id="deliveryAddressForm-dropdown">
+  <button class="card-close sidebar-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="header-search-wrap" style="width: 600px; height: 420px">
+    <div
+      class="card-header"
+      style="
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: black;
+      "
+    >
+      {{ title }}
+    </div>
+    <div class="card-body" [formGroup]="deliveryAddressForm">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Họ và tên</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nguyễn Văn A, Trần Thị B"
+              formControlName="consigneeName"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Điện thoại</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="0123382xxx"
+              formControlName="consigneePhone"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="exampleInputPassword1">Địa chỉ của bạn</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Số nhà, Thôn, Xã, Huyện, Tỉnh, Thành Phố, ..."
+              formControlName="deliveryAddressName"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label>Chọn loại địa chỉ <span>*</span></label>
+            <select formControlName="isActive" required>
+              <option value="1">Địa chỉ mặc định</option>
+              <option
+                value="0"
+                [disabled]="deliveryAddressForm.get('isActive')?.value == 1"
+              >
+                Địa chỉ phụ
+              </option>
+            </select>
+          </div>
+
+          <!-- <div class="form-group">
+            <select formControlName="isActive" required>
+              <option
+                value=""
+                [disabled]="deliveryAddressForm.get('isActive')?.value == 1"
+              >
+                Chọn loại địa chỉ
+              </option>
+              <option value="1">Địa chỉ mặc định</option>
+              <option
+                value="0"
+                [disabled]="deliveryAddressForm.get('isActive')?.value == 1"
+              >
+                Địa chỉ phụ
+              </option>
+            </select>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div style="text-align: end">
+        <button
+          class="btn btn-primary btn-updateDelivery sidebar-close"
+          (click)="
+            state === 0 ? createDeliveryAddress() : updateDeliveryAddress()
+          "
+        >
+          Cập nhật
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

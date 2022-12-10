@@ -1,0 +1,29 @@
+#checkbox-buy {
+  position: relative;
+  opacity: 1 !important;
+  transform: scale(0.5);
+  accent-color: #3577f0;
+}
+
+th {
+  font-size: 15px !important;
+  font-weight: 700;
+}
+
+.product-table-heading .title {
+  font-weight: 700 !important;
+  margin-bottom: 50px !important;
+}
+
+.axil-product-table tbody td,
+.axil-product-table tbody tr {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.btn-updateCartDetail {
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px;
+}

@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SlugifyPipe } from './pipes/slugify.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 
 @NgModule({
   declarations: [
-    SlugifyPipe
+    SlugifyPipe,
+    FilterPipe,
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    SlugifyPipe
+    SlugifyPipe,
+    FilterPipe,
+
   ],
   providers: [ SlugifyPipe ]
 })

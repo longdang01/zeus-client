@@ -1,0 +1,35 @@
+.btn-setDefault {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.delivery-wrap {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 30px;
+  margin-bottom: 45px;
+}
+
+.table-delivery td div {
+  line-height: 2;
+  color: grey;
+}
+
+.btn-createDelivery {
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.axil-order-summery.order-checkout-summery
+  .order-payment-method
+  .single-payment
+  p {
+  padding: 0;
+}
+
+.payment__description {
+  font-size: 14px !important;
+  color: grey !important;
+  font-weight: 500 !important;
+}

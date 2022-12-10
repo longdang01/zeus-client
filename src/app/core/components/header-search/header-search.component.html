@@ -13,6 +13,7 @@
             id="prod-search"
             placeholder="Tìm kiếm...."
             [(ngModel)]="keyword"
+            (input)="onSearchChange()"
           />
           <button type="submit" class="axil-btn btn-bg-primary">
             <i class="far fa-search"></i>
@@ -22,7 +23,15 @@
     </div>
     <div class="card-body">
       <div class="search-result-header">
-        <h6 class="title">24 kết quả được tìm thấy</h6>
+        <h6 class="title">
+          Kết quả tìm thấy:
+          {{
+            stateCount == 0
+              ? 0
+              : (products | filter : { productName: keyword })?.length
+          }}
+          sản phẩm
+        </h6>
         <a
           href="javascript:;"
           class="view-all"
@@ -31,8 +40,81 @@
           >Xem tất cả</a
         >
       </div>
-      <div class="psearch-results">
-        <div class="axil-product-list">
+      <div class="psearch-results hideItem">
+        <!-- | paginate
+                : {
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                  }; -->
+        <div
+          *ngFor="
+            let product of products | filter : { productName: keyword };
+            let i = index
+          "
+          class="axil-product-list"
+        >
+          <div class="thumbnail">
+            <a
+              href="javascript:;"
+              [routerLink]="['/detail']"
+              [queryParams]="{
+                product: product._id,
+                name: product.productName | slugify
+              }"
+            >
+              <img [src]="product.colors[0].images[0].picture" alt="" />
+            </a>
+          </div>
+          <div class="product-content">
+            <!-- <div class="product-rating">
+              <span class="rating-icon">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fal fa-star"></i>
+              </span>
+              <span class="rating-number"><span>100+</span> Reviews</span>
+            </div> -->
+            <h6 class="product-title">
+              <a
+                href="javascript:;"
+                [routerLink]="['/detail']"
+                [queryParams]="{
+                  product: product._id,
+                  name: product.productName | slugify
+                }"
+                >{{ product.productName }}</a
+              >
+            </h6>
+            <div>
+              <p>
+                {{ product.subCategory.subCategoryName }}
+              </p>
+            </div>
+            <!-- <div class="product-price-variant">
+              <span class="price current-price">$29.99</span>
+              <span class="price old-price">$49.99</span>
+            </div> -->
+            <div class="product-cart">
+              <a
+                href="javascript:;"
+                class="cart-btn"
+                [routerLink]="['/detail']"
+                [queryParams]="{
+                  product: product._id,
+                  name: product.productName | slugify
+                }"
+                ><i class="fal fa-shopping-cart"></i
+              ></a>
+              <!-- <a href="wishlist.html" class="cart-btn"
+                ><i class="fal fa-heart"></i
+              ></a> -->
+            </div>
+          </div>
+        </div>
+        <!-- <div class="axil-product-list">
           <div class="thumbnail">
             <a href="single-product.html">
               <img
@@ -68,44 +150,7 @@
               ></a>
             </div>
           </div>
-        </div>
-        <div class="axil-product-list">
-          <div class="thumbnail">
-            <a href="single-product.html">
-              <img
-                src="./assets/images/product/electric/product-09.png"
-                alt="Yantiti Leather Bags"
-              />
-            </a>
-          </div>
-          <div class="product-content">
-            <div class="product-rating">
-              <span class="rating-icon">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fal fa-star"></i>
-              </span>
-              <span class="rating-number"><span>100+</span> Reviews</span>
-            </div>
-            <h6 class="product-title">
-              <a href="single-product.html">Media Remote</a>
-            </h6>
-            <div class="product-price-variant">
-              <span class="price current-price">$29.99</span>
-              <span class="price old-price">$49.99</span>
-            </div>
-            <div class="product-cart">
-              <a href="cart.html" class="cart-btn"
-                ><i class="fal fa-shopping-cart"></i
-              ></a>
-              <a href="wishlist.html" class="cart-btn"
-                ><i class="fal fa-heart"></i
-              ></a>
-            </div>
-          </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

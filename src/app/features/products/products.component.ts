@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/core/services/product.service';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError} from '@angular/router';
+declare var $: any;
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewInit {
   
-  currentRoute: string;
+  colorIndex: number = 0;
   searchForm = {
     category: "",
     subCategory: "",
@@ -22,40 +23,25 @@ export class ProductsComponent implements OnInit {
   suppliers: any = [];
   collections: any = [];
 
+  // pagination
+  page: number = 1;
+  count: number = 0;
+  pageSize: number = 10;
+  pageSizes: any = [10, 20, 30, 40, 50];
+
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router ) {
-      this.getParams(this.route.queryParams);
-
-      this.currentRoute = "";
-      this.router.events.subscribe((event: Event) => {
-        if (event instanceof NavigationStart) {
-            // Show progress spinner or progress bar
-            // console.log('Route change detected');
-        }
-
-        if (event instanceof NavigationEnd) {
-            // Hide progress spinner or progress bar
-            // not used currentRouter
-            this.currentRoute = event.url;          
-            // console.log(event);
-            
-            this.getParams(this.route.queryParams);
-            this.search();
-        }
-
-        if (event instanceof NavigationError) {
-             // Hide progress spinner or progress bar
-
-            // Present error to user
-            console.log(event.error);
-        }
-      });
+      // reload when params change
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
   ngOnInit(): void {
     this.search();
+  }
+
+  ngAfterViewInit(): void {
   }
 
   getParams(queryParams: any){
@@ -67,14 +53,39 @@ export class ProductsComponent implements OnInit {
   }
   // search 
   search = () => {
+    this.getParams(this.route.queryParams);
+   
     this.productService.search(this.searchForm).subscribe((res: any) => {
       this.products = res.products;
       this.categories = res.categories;
       this.brands = res.brands;
       this.suppliers = res.suppliers;
       this.collections = res.collections;
-      console.log(this.products);
+      // console.log(this.products);
+      this.selectCategory(null, $('.activeCategory').first().text());
     });   
+  }
+
+  changeColor = (index: number) => {
+    this.colorIndex = index;
+  }
+
+  selectCategory = (event: any, name: any) => {
+    const btnDropdownCategory = $('#btn-dropdownCategory'); 
+    if(name === "") btnDropdownCategory.text("Tất cả sản phẩm");
+    else btnDropdownCategory.text(name);
+  }
+
+   // handle pagination
+   onTableDataChange = (event: any) => {
+    this.page = event;
+    this.search();
+  }
+  
+  onTableSizeChange = (event: any) => {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.search();
   }
 
 }

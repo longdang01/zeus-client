@@ -1,0 +1,436 @@
+<!-- Start Checkout Area  -->
+<div class="axil-checkout-area axil-section-gap">
+  <div class="container">
+    <form>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="axil-checkout-notice">
+            <!-- <div class="axil-toggle-box">
+              <div class="toggle-bar">
+                <i class="fas fa-user"></i> Returning customer?
+                <a href="javascript:void(0)" class="toggle-btn"
+                  >Click here to login <i class="fas fa-angle-down"></i
+                ></a>
+              </div>
+              <div class="axil-checkout-login toggle-open">
+                <p>If you didn't Logged in, Please Log in first.</p>
+                <div class="signin-box">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" />
+                  </div>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                    />
+                  </div>
+                  <div class="form-group mb--0">
+                    <button
+                      type="submit"
+                      class="axil-btn btn-bg-primary submit-btn"
+                    >
+                      Sign In
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="axil-toggle-box">
+              <div class="toggle-bar">
+                <i class="fas fa-pencil"></i> Có phiếu giảm giá (CODE)?
+                <a href="javascript:void(0)" class="toggle-btn"
+                  >Nhấn vào đây để nhập mã của bạn
+                  <i class="fas fa-angle-down"></i
+                ></a>
+              </div>
+
+              <div class="axil-checkout-coupon toggle-open">
+                <p>
+                  Nếu bạn có mã phiếu giảm giá, vui lòng áp dụng nó bên dưới.
+                </p>
+                <div class="input-group">
+                  <input placeholder="Enter coupon code" type="text" />
+                  <div class="apply-btn">
+                    <a
+                      href="javascript:void(0)"
+                      class="axil-btn btn-bg-primary"
+                      onclick="alert('Chức năng đang cập nhật')"
+                    >
+                      Áp dụng
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="axil-checkout-billing">
+            <!-- <h4 class="title mb--40">Billing details</h4>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>First Name <span>*</span></label>
+                  <input type="text" id="first-name" placeholder="Adam" />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Last Name <span>*</span></label>
+                  <input type="text" id="last-name" placeholder="John" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Company Name</label>
+              <input type="text" id="company-name" />
+            </div>
+            <div class="form-group">
+              <label>Country/ Region <span>*</span></label>
+              <select id="Region">
+                <option value="3">Australia</option>
+                <option value="4">England</option>
+                <option value="6">New Zealand</option>
+                <option value="5">Switzerland</option>
+                <option value="1">United Kindom (UK)</option>
+                <option value="2">United States (USA)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Street Address <span>*</span></label>
+              <input
+                type="text"
+                id="address1"
+                class="mb--15"
+                placeholder="House number and street name"
+              />
+              <input
+                type="text"
+                id="address2"
+                placeholder="Apartment, suite, unit, etc. (optonal)"
+              />
+            </div>
+            <div class="form-group">
+              <label>Town/ City <span>*</span></label>
+              <input type="text" id="town" />
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" id="country" />
+            </div>
+            <div class="form-group">
+              <label>Phone <span>*</span></label>
+              <input type="tel" id="phone" />
+            </div>
+            <div class="form-group">
+              <label>Email Address <span>*</span></label>
+              <input type="email" id="email" />
+            </div>
+            <div class="form-group input-group">
+              <input type="checkbox" id="checkbox1" name="account-create" />
+              <label for="checkbox1">Create an account</label>
+            </div> -->
+            <div class="form-group different-shippng">
+              <div class="toggle-bar">
+                <a href="javascript:void(0)" class="toggle-btn">
+                  <input type="checkbox" id="checkbox2" name="diffrent-ship" />
+                  <label for="checkbox2" style="font-weight: 600"
+                    >Thêm địa chỉ nhận hàng?</label
+                  >
+                </a>
+              </div>
+              <div class="toggle-open" [formGroup]="deliveryAddressForm">
+                <div class="form-group">
+                  <label>Chọn loại địa chỉ <span>*</span></label>
+                  <select formControlName="isActive" required>
+                    <option value="1">Địa chỉ mặc định</option>
+                    <option value="0">Địa chỉ phụ</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Họ và tên <span>*</span></label>
+                  <input
+                    type="text"
+                    id="address1"
+                    class="mb--15"
+                    placeholder="Nguyễn Văn A, Nguyễn Văn B"
+                    formControlName="consigneeName"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại <span>*</span></label>
+                  <input
+                    type="text"
+                    id=""
+                    placeholder="0123456xxx"
+                    formControlName="consigneePhone"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Địa chỉ của bạn</label>
+                  <input
+                    type="text"
+                    id=""
+                    placeholder="Số nhà, Thôn, Xã, Huyện, Tỉnh, Thành Phố, ..."
+                    formControlName="deliveryAddressName"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <button
+                    class="btn btn-primary btn-createDelivery toggle-btn"
+                    (click)="createDeliveryAddress()"
+                  >
+                    Thêm địa chỉ
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="summery-table-wrap axil-order-summery">
+              <div class="mb--40">
+                <h4 class="title" style="margin-bottom: 10px; font-weight: 600">
+                  Danh sách địa chỉ nhận hàng
+                </h4>
+                <a
+                  href="javascript:;"
+                  routerLink="/my-account/delivery-address"
+                  style="color: var(--color-primary)"
+                  >Đi đến trang tài khoản của bạn để quản lý thông tin</a
+                >
+              </div>
+              <div class="delivery-wrap">
+                <table class="table summery-table table-delivery">
+                  <thead>
+                    <tr>
+                      <th style="padding: 0">Địa Chỉ</th>
+                      <th style="padding: 0">Trạng Thái</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let deliveryAddress of deliveryAddresses"
+                      class="order-product"
+                    >
+                      <td>
+                        <div>
+                          Họ và tên: {{ deliveryAddress.consigneeName }}
+                        </div>
+                        <div>SĐT: {{ deliveryAddress.consigneePhone }}</div>
+                        <div>
+                          Địa chỉ: {{ deliveryAddress.deliveryAddressName }}
+                        </div>
+                      </td>
+                      <td>
+                        <p
+                          *ngIf="deliveryAddress.isActive == 1"
+                          style="color: var(--color-primary)"
+                        >
+                          Mặc Định
+                        </p>
+                        <button
+                          *ngIf="deliveryAddress.isActive == 0"
+                          class="btn btn-primary btn-setDefault"
+                          (click)="updateDeliveryAddress(deliveryAddress)"
+                        >
+                          Thiết Lập Mặc Định
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top: 100px">
+              <label>Lời nhắn cho người bán hàng (tùy chọn)</label>
+              <textarea
+                id="notes"
+                rows="2"
+                placeholder="Ghi chú về đơn đặt hàng của bạn."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="axil-order-summery order-checkout-summery">
+            <h5 class="title mb--20" style="font-weight: 600">
+              Đơn hàng của bạn
+            </h5>
+            <div class="summery-table-wrap">
+              <table class="table summery-table">
+                <thead>
+                  <tr>
+                    <th>Sản phẩm</th>
+                    <th>Thành tiền</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let cartDetail of cartDetails"
+                    class="order-product"
+                  >
+                    <td>
+                      <div style="font-size: 14px; font-weight: 600">
+                        {{ cartDetail.product.productName }}
+                      </div>
+                      <div style="color: grey; font-size: 13px">
+                        {{ cartDetail.color.colorName }}/{{
+                          cartDetail.size.sizeName
+                        }}/x{{ cartDetail.quantity }}
+                      </div>
+                    </td>
+                    <td>
+                      <span *ngIf="!cartDetail.color.sales[0]" class="">{{
+                        cartDetail.color.price * cartDetail.quantity
+                          | currency : "VND" : "symbol"
+                      }}</span>
+                      <span
+                        *ngIf="
+                          cartDetail.color.sales[0] &&
+                          cartDetail.color.sales[0].symbol == 'K'
+                        "
+                        class=""
+                        >{{
+                          (cartDetail.color.price -
+                            cartDetail.color.sales[0].value) *
+                            cartDetail.quantity | currency : "VND" : "symbol"
+                        }}</span
+                      >
+                      <span
+                        *ngIf="
+                          cartDetail.color.sales[0] &&
+                          cartDetail.color.sales[0].symbol == '%'
+                        "
+                        class=""
+                        >{{
+                          cartDetail.color.price *
+                            ((100 - cartDetail.color.sales[0].value) / 100) *
+                            cartDetail.quantity | currency : "VND" : "symbol"
+                        }}</span
+                      >
+                    </td>
+                  </tr>
+                  <tr class="order-subtotal">
+                    <td style="font-weight: 700">Tổng tiền</td>
+                    <td style="font-weight: 700">
+                      {{ totalPrice | currency : "VND" : "symbol" }}
+                    </td>
+                  </tr>
+                  <tr class="order-shipping">
+                    <td colspan="2">
+                      <div class="shipping-amount">
+                        <span class="title">Hình thức vận chuyển</span>
+                        <span class="amount">{{
+                          selectedTransport?.fee | currency : "VND" : "symbol"
+                        }}</span>
+                      </div>
+                      <div
+                        *ngFor="let transport of transports; let i = index"
+                        class="input-group"
+                      >
+                        <input
+                          type="radio"
+                          id="transportRadio{{ i }}"
+                          name="shipping"
+                          [checked]="selectedTransport._id == transport._id"
+                          (change)="selectTransport(transport)"
+                        />
+                        <label for="transportRadio{{ i }}">{{
+                          transport.transportType
+                        }}</label>
+                      </div>
+                      <!-- <div class="input-group">
+                        <input type="radio" id="radio2" name="shipping" />
+                        <label for="radio2">Local</label>
+                      </div>
+                      <div class="input-group">
+                        <input type="radio" id="radio3" name="shipping" />
+                        <label for="radio3">Flat rate</label>
+                      </div> -->
+                    </td>
+                  </tr>
+
+                  <tr class="order-total">
+                    <td>Thanh toán</td>
+                    <td class="order-total-amount">
+                      {{
+                        totalPrice + selectedTransport?.fee
+                          | currency : "VND" : "symbol"
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="text-align: justify; color: grey">
+                Phí vận chuyển là phí ước tính. Tùy theo trọng lượng của sản
+                phẩm hay địa điểm nhận hàng có thể chênh phí vận chuyển từ + (-)
+                20,000 VNĐ. Qúy khách vui lòng lưu ý.
+              </div>
+            </div>
+            <div class="order-payment-method">
+              <h4 class="mb--40">Hình thức thanh toán</h4>
+              <div
+                *ngFor="let payment of payments; let i = index"
+                class="single-payment"
+              >
+                <div class="input-group">
+                  <input
+                    type="radio"
+                    id="paymentRadio{{ i }}"
+                    name="payment"
+                    [checked]="selectedPayment._id == payment._id"
+                    (change)="selectPayment(payment)"
+                  />
+                  <label for="paymentRadio{{ i }}" style="font-size: 18px">{{
+                    payment.paymentType
+                  }}</label>
+                </div>
+                <p
+                  class="payment__description"
+                  [innerHTML]="payment?.description"
+                >
+                  <!-- <div [innerHTML]="payment?.description"></div> -->
+                  <!-- Make your payment directly into our bank account. Please use
+                  your Order ID as the payment reference. Your order will not be
+                  shipped until the funds have cleared in our account. -->
+                </p>
+              </div>
+              <!-- <div class="single-payment">
+                <div class="input-group">
+                  <input type="radio" id="radio5" name="payment" />
+                  <label for="radio5">Cash on delivery</label>
+                </div>
+                <p>Pay with cash upon delivery.</p>
+              </div> -->
+              <!-- <div class="single-payment">
+                <div
+                  class="input-group justify-content-between align-items-center"
+                >
+                  <input type="radio" id="radio6" name="payment" checked />
+                  <label for="radio6">Paypal</label> -->
+              <!-- <img
+                    src="./assets/images/others/payment.png"
+                    alt="Paypal payment"
+                  /> -->
+              <!-- </div>
+                <p>
+                  Pay via PayPal; you can pay with your credit card if you don’t
+                  have a PayPal account.
+                </p>
+              </div> -->
+            </div>
+            <button
+              class="axil-btn btn-bg-primary checkout-btn"
+              (click)="purchase()"
+            >
+              Tiến hành thanh toán
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- End Checkout Area  -->

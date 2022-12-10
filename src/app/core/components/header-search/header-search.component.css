@@ -1,0 +1,31 @@
+.thumbnail img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+#prod-search,
+.axil-product-list,
+.search-result-header {
+  box-shadow: 0px 0px 8px rgb(0 0 0 / 12%);
+  border: 1px solid #e0e0e0;
+}
+
+.axil-product-list .product-content h6 {
+  font-size: 15px;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.axil-product-list .product-content p,
+.search-result-header,
+.search-result-header .title {
+  font-weight: 700;
+}
+
+.search-result-header {
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}

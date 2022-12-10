@@ -12,7 +12,7 @@
               Cửa hàng
             </li>
           </ul>
-          <h1 class="title">Khám phá sản phẩm</h1>
+          <h1 class="title">Cửa hàng</h1>
         </div>
       </div>
       <div class="col-lg-6 col-md-4">
@@ -35,13 +35,117 @@
             <div class="col-lg-9">
               <div class="category-select">
                 <!-- Start Single Select  -->
-                <select class="single-select">
+                <div class="dropdown">
+                  <!-- btn btn-secondary dropdown-toggle  -->
+                  <button
+                    id="btn-dropdownCategory"
+                    class="single-select"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <!-- Tất cả sản phẩm -->
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a
+                        [routerLink]="['/products']"
+                        (click)="selectCategory(0, 'Tất cả sản phẩm')"
+                        style="display: block"
+                      >
+                        Tất cả sản phẩm
+                      </a>
+                    </li>
+                    <li *ngFor="let category of categories">
+                      <div
+                        class="axil-submenu-header"
+                        style="padding-left: 20px"
+                      >
+                        {{ category.categoryName }}
+                      </div>
+                      <ul class="">
+                        <li>
+                          <a
+                            [routerLink]="['/products']"
+                            [queryParams]="{
+                              category: category._id,
+                              name: category.categoryName | slugify
+                            }"
+                            [class]="
+                              category._id === searchForm.category
+                                ? 'activeCategory'
+                                : ''
+                            "
+                            (click)="
+                              selectCategory(
+                                $event,
+                                'Tất cả ' + category.categoryName
+                              )
+                            "
+                            >Tất cả {{ category.categoryName }}</a
+                          >
+                        </li>
+                        <li *ngFor="let subCategory of category.subCategories">
+                          <a
+                            [routerLink]="['/products']"
+                            [queryParams]="{
+                              subCategory: subCategory._id,
+                              name: subCategory.subCategoryName | slugify
+                            }"
+                            [class]="
+                              subCategory._id === searchForm.subCategory
+                                ? 'activeCategory'
+                                : ''
+                            "
+                            (click)="
+                              selectCategory(
+                                $event,
+                                subCategory.subCategoryName
+                              )
+                            "
+                            >{{ subCategory.subCategoryName }}</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- <select class="single-select">
+                  <option value="">Tất cả sản phẩm</option>
+                  <optgroup
+                    *ngFor="let category of categories"
+                    [label]="category.categoryName"
+                  >
+                    <option
+                      value=""
+                      [routerLink]="['/products']"
+                      [queryParams]="{
+                        category: category._id,
+                        name: category.categoryName | slugify
+                      }"
+                    >
+                      {{ category.categoryName }}
+                    </option>
+                    <option
+                      *ngFor="let subCategory of category.subCategories"
+                      [value]="subCategory._id"
+                    >
+                      {{ subCategory.subCategoryName }}
+                    </option>
+                  </optgroup>
+                </select> -->
+
+                <!-- <select class="single-select">
                   <option>Tất cả sản phẩm</option>
-                  <!-- <option>Fashion</option>
+                  <option *ngFor="let category of categories">
+                    Tất cả {{ category.}}
+                  </option> -->
+                <!-- <option>Fashion</option>
                   <option>Electronics</option>
                   <option>Furniture</option>
                   <option>Beauty</option> -->
-                </select>
+                <!-- </select> -->
                 <!-- End Single Select  -->
 
                 <!-- Start Single Select  -->
@@ -84,17 +188,43 @@
       </div>
     </div>
     <div class="row row--15">
-      <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div
+        *ngFor="
+          let product of products
+            | paginate
+              : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index
+        "
+        current-page="currentPage"
+        class="col-xl-3 col-lg-4 col-sm-6"
+      >
         <div class="axil-product product-style-one has-color-pick mt--40">
           <div class="thumbnail">
-            <a href="single-product.html">
+            <a
+              href="javascript:;"
+              [routerLink]="['/detail']"
+              [queryParams]="{
+                product: product._id,
+                name: product.productName | slugify
+              }"
+            >
               <img
-                src="assets/images/product/electric/product-01.png"
+                [src]="product.colors[colorIndex].images[0].picture"
                 alt="Product Images"
               />
             </a>
             <div class="label-block label-right">
-              <div class="product-badget">20% OFF</div>
+              <div
+                *ngIf="product.colors[colorIndex].sales[0]"
+                class="product-badget"
+              >
+                {{ product.colors[colorIndex].sales[0].value
+                }}{{ product.colors[colorIndex].sales[0].symbol }} Giảm
+              </div>
             </div>
             <div class="product-hover-action">
               <ul class="cart-action">
@@ -102,7 +232,15 @@
                   <a href="wishlist.html"><i class="far fa-heart"></i></a>
                 </li> -->
                 <li class="select-option">
-                  <a href="cart.html">Thêm vào giỏ hàng</a>
+                  <a
+                    href="javascript:;"
+                    [routerLink]="['/detail']"
+                    [queryParams]="{
+                      product: product._id,
+                      name: product.productName | slugify
+                    }"
+                    >Mua hàng</a
+                  >
                 </li>
                 <!-- <li class="quickview">
                   <a
@@ -118,22 +256,79 @@
           <div class="product-content">
             <div class="inner">
               <h5 class="title">
-                <a href="single-product.html">3D™ wireless headset</a>
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/detail']"
+                  [queryParams]="{
+                    product: product._id,
+                    name: product.productName | slugify
+                  }"
+                  >{{ product.productName }}</a
+                >
               </h5>
               <div class="product-price-variant">
-                <span class="price current-price">$30</span>
-                <span class="price old-price">$30</span>
+                <span
+                  *ngIf="!product.colors[colorIndex].sales[0]"
+                  class="price current-price"
+                  >{{
+                    product.colors[colorIndex].price
+                      | currency : "VND" : "symbol"
+                  }}</span
+                >
+
+                <span
+                  *ngIf="
+                    product.colors[colorIndex].sales[0] &&
+                    product.colors[colorIndex].sales[0].symbol == 'K'
+                  "
+                  class="price current-price"
+                  >{{
+                    product.colors[colorIndex].price -
+                      product.colors[colorIndex].sales[0].value
+                      | currency : "VND" : "symbol"
+                  }}</span
+                >
+                <span
+                  *ngIf="
+                    product.colors[colorIndex].sales[0] &&
+                    product.colors[colorIndex].sales[0].symbol == '%'
+                  "
+                  class="price current-price"
+                  >{{
+                    product.colors[colorIndex].price *
+                      ((100 - product.colors[colorIndex].sales[0].value) / 100)
+                      | currency : "VND" : "symbol"
+                  }}</span
+                >
+                <span
+                  *ngIf="product.colors[colorIndex].sales[0]"
+                  class="price old-price"
+                  >{{
+                    product.colors[colorIndex].price
+                      | currency : "VND" : "symbol"
+                  }}</span
+                >
+                <!-- <span class="price current-price">$30</span>
+                <span class="price old-price">$30</span> -->
               </div>
               <div class="color-variant-wrapper">
                 <ul class="color-variant">
-                  <li class="color-extra-01 active">
-                    <span><span class="color"></span></span>
-                  </li>
-                  <li class="color-extra-02">
-                    <span><span class="color"></span></span>
-                  </li>
-                  <li class="color-extra-03">
-                    <span><span class="color"></span></span>
+                  <!-- [class.color-extra-0]="color-extra-0i" -->
+                  <li
+                    *ngFor="let color of product.colors; let i = index"
+                    [class.active]="i == colorIndex"
+                    (click)="changeColor(i)"
+                  >
+                    <span
+                      [ngStyle]="
+                        i == colorIndex ? { 'border-color': color.hex } : null
+                      "
+                    >
+                      <span
+                        class="color"
+                        [ngStyle]="{ 'background-color': color.hex }"
+                      ></span>
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -255,13 +450,31 @@
       <!-- End Single Product  -->
     </div>
     <div class="text-center pt--30">
+      <!-- BEGIN: Pagination -->
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <pagination-controls
+            previousLabel=""
+            nextLabel=""
+            (pageChange)="onTableDataChange($event)"
+          >
+          </pagination-controls>
+        </div>
+        <select (change)="onTableSizeChange($event)" style="width: 80px">
+          <option *ngFor="let size of pageSizes" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+      <!-- END: Pagination -->
+
       <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Load more</a>
     </div>
   </div>
   <!-- End .container -->
 </div>
 
-<div class="axil-newsletter-area axil-section-gap pt--0">
+<!-- <div class="axil-newsletter-area axil-section-gap pt--0">
   <div class="container">
     <div class="etrade-newsletter-wrapper bg_image bg_image--5">
       <div class="newsletter-content">
@@ -278,8 +491,7 @@
       </div>
     </div>
   </div>
-  <!-- End .container -->
-</div>
+</div> -->
 
 <div class="service-area">
   <div class="container">

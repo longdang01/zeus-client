@@ -25,6 +25,12 @@ export class OrdersService {
     return this.httpClient.get(apiUrl);
   }
 
+  // search
+  search(data: any): Observable<any> {
+    const apiUrl = `${this.API_URL}/search`;
+    return this.httpClient.post(apiUrl, data, this.httpOptions)
+  }
+
   // get by id
   getById(id: any): Observable<any> {
     const apiUrl = `${this.API_URL}/${id}`;

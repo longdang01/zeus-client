@@ -8,6 +8,7 @@ import { QuickViewComponent } from './components/quick-view/quick-view.component
 import { HeaderSearchComponent } from './components/header-search/header-search.component';
 import { CartDropdownComponent } from './components/cart-dropdown/cart-dropdown.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { SharedModule } from '../shared/shared.module';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule,
   ],
   exports: [
     HeaderComponent,

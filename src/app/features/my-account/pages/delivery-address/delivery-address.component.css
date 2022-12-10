@@ -1,0 +1,29 @@
+.axil-dashboard-address__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.axil-dashboard-address__header button {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 20px;
+  display: inline-block;
+  width: 150px;
+}
+
+.axil-dashboard-address__header p {
+  margin-bottom: 0;
+}
+
+.btn-updateDelivery {
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.color-primary {
+  color: var(--color-primary);
+}

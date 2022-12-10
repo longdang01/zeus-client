@@ -1,0 +1,19 @@
+.header__greeting:hover a {
+  color: #c2c2cc !important;
+  cursor: auto !important;
+}
+
+.header-action .my-account .my-account-dropdown.open {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.header-action .my-account .my-account-dropdown.open a {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.header-action .my-account .my-account-dropdown .title {
+  display: inline-block;
+  margin-bottom: 30px;
+}

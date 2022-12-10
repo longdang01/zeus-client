@@ -21,13 +21,16 @@ export class ErrorIntercept implements HttpInterceptor {
                     let errorMessage = '';
                     if (error.error instanceof ErrorEvent) {
                         // client-side error
-                        errorMessage = `Error: ${error.error.message}`;
+                        // errorMessage = `Error: ${error.error.message}`;
+                        errorMessage = `Message: ${error.error.message}`;
                     } else {
                         // server-side error
-                        errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
+                        errorMessage = `Message: ${error.error.message}`;
+                        // errorMessage = `Error Status: ${error.status}\nMessage: ${error.error.message}`;
                     }
-                    console.log(errorMessage);
-                    return throwError(errorMessage);
+                    console.log(errorMessage)
+                    console.log(error)
+                    return throwError(() => new Error(errorMessage));
                 })
             )
     }

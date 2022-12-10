@@ -1,4 +1,5 @@
-@import "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap";
+@import 
+"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap";
 :root {
   --color-primary: #3577f0;
   --light-primary: #8c71db;
@@ -997,10 +998,10 @@ ol li a {
   background-image: url(/../images/bg/bg-image-8.jpg);
 }
 .bg_image--9 {
-  background-image: url(/../images/bg/bg-image-9.jpg);
+  background-image: url(/assets/images/bg/bg-image-9.jpg);
 }
 .bg_image--10 {
-  background-image: url(/../images/bg/bg-image-10.jpg);
+  background-image: url(/assets/images/bg/bg-image-10.jpg);
 }
 .bg_image--11 {
   background-image: url(/../images/bg/bg-image-11.jpg);
@@ -1880,8 +1881,8 @@ select,
   appearance: none;
   border: 1px solid var(--color-border-light);
   border-radius: 6px;
-  background: url(/../images/icons/arrow-icon.png) 95% center no-repeat
-    rgba(0, 0, 0, 0);
+  /* background: url(/assets/images/icons/arrow-icon.png) 95% center no-repeat */
+    /* rgba(0, 0, 0, 0); */
   padding-right: 32px;
   font-size: var(--font-size-b1);
   line-height: var(--line-height-b1);

@@ -1,0 +1,32 @@
+#searchOrders {
+  background: #fff;
+  box-shadow: 0 3px 20px #0000000b;
+  font-size: 15px;
+  font-weight: 500;
+  border-color: var(--color-primary);
+}
+
+#ordersForm-dropdown .card-body .form-orders {
+  margin-bottom: 3px;
+}
+
+#ordersForm-dropdown .card-body .form-orders label,
+#ordersForm-dropdown .card-body .form-orders span {
+  font-weight: 600;
+}
+
+#ordersForm-dropdown .card-body .form-orders label {
+  color: black;
+  min-width: 200px;
+}
+
+.table-ordersDetails th {
+  text-transform: capitalize;
+}
+
+.table-ordersDetails td {
+  padding: 15px 5px;
+  font-size: 13px;
+  font-weight: 600;
+  vertical-align: middle;
+}
