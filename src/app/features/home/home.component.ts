@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as sal from 'sal.js';
+import { CategoryService } from 'src/app/core/services/category.service';
 import { ScriptService } from 'src/app/core/services/script.service';
+import { SlideService } from 'src/app/core/services/slide.service';
+import { SubCategoryService } from 'src/app/core/services/subCategory.service';
 declare var $: any;
 
 @Component({
@@ -9,98 +12,120 @@ declare var $: any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
+
+  subCategories: any = [];
+  slides: any = [];
 
   constructor(private scriptService: ScriptService,
+    private categoryService: CategoryService,
+    private subCategoryService: SubCategoryService,
+    private slideService: SlideService,
     private router: Router, private route:ActivatedRoute) {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    $('#slick-slider').slick('refresh');
-
-   }
+    // $('#slick-slider').slick('refresh');
+  }
 
   ngOnInit(): void {
-    // 'sal',
     
+    
+    this.searchCategories();
+    this.searchSlide();
+    //handle ui
+    // 'sal',
     this.scriptService.load(
       'imagesloaded-pkgd',
       ).then(data => {
       // console.log('script loaded ', data);
     }).catch(error => console.log(error));
     
-    this.initSlide();
+    // this.initSlide();
     this.magnificPopupActivation();
     this.axilMasonary();
   }
 
-  ngAfterViewInit(): void {
+  searchCategories() {
+    this.subCategoryService.get().subscribe((res: any) => {
+      this.subCategories = res;
+    }); 
+
+  }
+
+  searchSlide=  () => {
+    this.slideService.get().subscribe((res: any) => {
+      this.slides = res;
+      console.log(this.slides)
+      // this.initSlide();
+      // console.log(this.slides)
+    }); 
   }
 
   initSlide = () => {
     // hero
-    $(".slider-activation-two").slick({
-      infinite: true,
-      autoplay: false,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      dots: true,
-      fade: true,
-      adaptiveHeight: true,
-      cssEase: "linear",
-      speed: 400,
-    });
+    // $(".slider-activation-two").slick({
+    //   infinite: true,
+    //   autoplay: false,
+    //   slidesToShow: 1,
+    //   slidesToScroll: 1,
+    //   arrows: false,
+    //   dots: true,
+    //   fade: true,
+    //   adaptiveHeight: true,
+    //   cssEase: "linear",
+    //   speed: 400,
+    // });
 
     // categories
-    $(".categrie-product-activation-3").slick({
-      infinite: true,
-      slidesToShow: 6,
-      slidesToScroll: 6,
-      arrows: true,
-      dots: false,
-      autoplay: false,
-      speed: 1000,
-      prevArrow:
-        '<button class="slide-arrow prev-arrow"><i class="fal fa-long-arrow-left"></i></button>',
-      nextArrow:
-        '<button class="slide-arrow next-arrow"><i class="fal fa-long-arrow-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1199,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 5,
-          },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 4,
-          },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-          },
-        },
-        {
-          breakpoint: 479,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 400,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
+    // $(".categrie-product-activation-3").slick({
+    //   infinite: true,
+    //   slidesToShow: 6,
+    //   slidesToScroll: 6,
+    //   arrows: true,
+    //   dots: false,
+    //   autoplay: false,
+    //   speed: 1000,
+    //   prevArrow:
+    //     '<button class="slide-arrow prev-arrow"><i class="fal fa-long-arrow-left"></i></button>',
+    //   nextArrow:
+    //     '<button class="slide-arrow next-arrow"><i class="fal fa-long-arrow-right"></i></button>',
+    //   responsive: [
+    //     {
+    //       breakpoint: 1199,
+    //       settings: {
+    //         slidesToShow: 5,
+    //         slidesToScroll: 5,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 991,
+    //       settings: {
+    //         slidesToShow: 4,
+    //         slidesToScroll: 4,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 767,
+    //       settings: {
+    //         slidesToShow: 3,
+    //         slidesToScroll: 3,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 479,
+    //       settings: {
+    //         slidesToShow: 2,
+    //         slidesToScroll: 2,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 400,
+    //       settings: {
+    //         slidesToShow: 1,
+    //         slidesToScroll: 1,
+    //       },
+    //     },
+    //   ],
+    // });
 
     // best sellers
     $(".new-arrivals-product-activation-2").slick({

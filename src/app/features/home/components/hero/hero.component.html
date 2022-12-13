@@ -1,0 +1,92 @@
+<div class="axil-main-slider-area main-slider-style-5">
+  <div class="slider-box-wrap">
+    <div class="slider-activation-two axil-slick-dots">
+      <div *ngFor="let slide of slides" class="single-slide slick-slide">
+        <div class="main-slider-content">
+          <span class="subtitle"
+            ><i class="fas fa-fire"></i> Localbrand Việt Nam</span
+          >
+          <h1 class="title">{{ slide.slideName }}</h1>
+          <div class="shop-btn">
+            <a
+              href="javascript:;"
+              routerLink="/products"
+              class="axil-btn btn-bg-white"
+              ><i class="fal fa-shopping-cart"></i> Mua Hàng</a
+            >
+          </div>
+        </div>
+        <div class="main-slider-thumb">
+          <img [src]="slide.picture" alt="Product" />
+          <div id="overlay"></div>
+        </div>
+      </div>
+      <!-- <div class="single-slide slick-slide">
+          <div class="main-slider-content">
+            <span class="subtitle"
+              ><i class="fas fa-fire"></i> Hot Deal In This Week</span
+            >
+            <h1 class="title">Neon Stylish Sofa Chair</h1>
+            <div class="shop-btn">
+              <a href="shop.html" class="axil-btn btn-bg-white"
+                ><i class="fal fa-shopping-cart"></i> Shop Now</a
+              >
+            </div>
+          </div>
+          <div class="main-slider-thumb">
+            <img src="assets/images/product/product-47.png" alt="Product" />
+            <div id="overlay"></div>
+          </div>
+        </div>
+        <div class="single-slide slick-slide">
+          <div class="main-slider-content">
+            <span class="subtitle"
+              ><i class="fas fa-fire"></i> Hot Deal In This Week</span
+            >
+            <h1 class="title">Neon Stylish Sofa Chair</h1>
+            <div class="shop-btn">
+              <a href="shop.html" class="axil-btn btn-bg-white"
+                ><i class="fal fa-shopping-cart"></i> Shop Now</a
+              >
+            </div>
+          </div>
+          <div class="main-slider-thumb">
+            <img src="assets/images/product/product-47.png" alt="Product" />
+            <div id="overlay"></div>
+          </div>
+        </div> -->
+      <!-- <div class="single-slide slick-slide">
+          <div class="main-slider-content">
+            <span class="subtitle"
+              ><i class="fas fa-fire"></i> Hot Deal In This Week</span
+            >
+            <h1 class="title">Sofa Chair with Lamp</h1>
+            <div class="shop-btn">
+              <a href="shop.html" class="axil-btn btn-bg-white"
+                ><i class="fal fa-shopping-cart"></i> Shop Now</a
+              >
+            </div>
+          </div>
+          <div class="main-slider-thumb">
+            <img src="assets/images/product/product-48.png" alt="Product" />
+          </div>
+        </div>
+        <div class="single-slide slick-slide">
+          <div class="main-slider-content">
+            <span class="subtitle"
+              ><i class="fas fa-fire"></i> Hot Deal In This Week</span
+            >
+            <h1 class="title">Neon Stylish Sofa Chair</h1>
+            <div class="shop-btn">
+              <a href="shop.html" class="axil-btn btn-bg-white"
+                ><i class="fal fa-shopping-cart"></i> Shop Now</a
+              >
+            </div>
+          </div>
+          <div class="main-slider-thumb">
+            <img src="assets/images/product/product-47.png" alt="Product" />
+          </div>
+        </div> -->
+    </div>
+  </div>
+</div>
