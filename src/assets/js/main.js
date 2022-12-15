@@ -1,6 +1,18 @@
 (function (window, document, $, undefined) {
   "use strict";
 
+  // :: 1.0 PRELOADER ACTIVE CODE
+  // $(window).on("load", function () {
+  //   $(".preloader-wapper").addClass("loaded");
+  //   if ($(".preloader-wapper").hasClass("loaded")) {
+  //     $(".preloader-main")
+  //       .delay(1200)
+  //       .queue(function () {
+  //         $(this).remove();
+  //       });
+  //   }
+  //   });
+
   var axilInit = {
     i: function (e) {
       axilInit.s();

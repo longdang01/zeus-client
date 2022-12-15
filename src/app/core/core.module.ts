@@ -9,6 +9,7 @@ import { HeaderSearchComponent } from './components/header-search/header-search.
 import { CartDropdownComponent } from './components/cart-dropdown/cart-dropdown.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     QuickViewComponent,
     HeaderSearchComponent,
     CartDropdownComponent,
+    PreloaderComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     QuickViewComponent,
     HeaderSearchComponent,
     CartDropdownComponent,
+    PreloaderComponent
   ],
 })
 export class CoreModule { }

@@ -212,18 +212,38 @@
                 name: product.productName | slugify
               }"
             >
+              <!-- <img
+                [src]="product.colors[product._id == selectedProduct?._id ? colorIndex : 0]?.images[0].picture"
+                alt="Product Images"
+              /> -->
               <img
-                [src]="product.colors[colorIndex].images[0].picture"
+                [src]="
+                  product.colors[
+                    product._id == selectedProduct?._id ? colorIndex : 0
+                  ]?.images[0].picture
+                "
                 alt="Product Images"
               />
             </a>
             <div class="label-block label-right">
               <div
-                *ngIf="product.colors[colorIndex].sales[0]"
+                *ngIf="
+                  product.colors[
+                    product._id == selectedProduct?._id ? colorIndex : 0
+                  ]?.sales[0]
+                "
                 class="product-badget"
               >
-                {{ product.colors[colorIndex].sales[0].value
-                }}{{ product.colors[colorIndex].sales[0].symbol }} Giảm
+                {{
+                  product.colors[
+                    product._id == selectedProduct?._id ? colorIndex : 0
+                  ]?.sales[0].value
+                }}{{
+                  product.colors[
+                    product._id == selectedProduct?._id ? colorIndex : 0
+                  ]?.sales[0].symbol
+                }}
+                Giảm
               </div>
             </div>
             <div class="product-hover-action">
@@ -268,45 +288,75 @@
               </h5>
               <div class="product-price-variant">
                 <span
-                  *ngIf="!product.colors[colorIndex].sales[0]"
+                  *ngIf="
+                    !product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0]
+                  "
                   class="price current-price"
                   >{{
-                    product.colors[colorIndex].price
-                      | currency : "VND" : "symbol"
-                  }}</span
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.price | number
+                  }}
+                  VND</span
                 >
 
                 <span
                   *ngIf="
-                    product.colors[colorIndex].sales[0] &&
-                    product.colors[colorIndex].sales[0].symbol == 'K'
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0] &&
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0].symbol == 'K'
                   "
                   class="price current-price"
                   >{{
-                    product.colors[colorIndex].price -
-                      product.colors[colorIndex].sales[0].value
-                      | currency : "VND" : "symbol"
-                  }}</span
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.price -
+                      product.colors[
+                        product._id == selectedProduct?._id ? colorIndex : 0
+                      ]?.sales[0].value | number
+                  }}
+                  VND</span
                 >
                 <span
                   *ngIf="
-                    product.colors[colorIndex].sales[0] &&
-                    product.colors[colorIndex].sales[0].symbol == '%'
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0] &&
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0].symbol == '%'
                   "
                   class="price current-price"
                   >{{
-                    product.colors[colorIndex].price *
-                      ((100 - product.colors[colorIndex].sales[0].value) / 100)
-                      | currency : "VND" : "symbol"
-                  }}</span
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.price *
+                      ((100 -
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0].value) /
+                        100) | number
+                  }}
+                  VND</span
                 >
                 <span
-                  *ngIf="product.colors[colorIndex].sales[0]"
+                  *ngIf="
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0]
+                  "
                   class="price old-price"
                   >{{
-                    product.colors[colorIndex].price
-                      | currency : "VND" : "symbol"
-                  }}</span
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.price | number
+                  }}
+                  VND</span
                 >
                 <!-- <span class="price current-price">$30</span>
                 <span class="price old-price">$30</span> -->
@@ -316,12 +366,22 @@
                   <!-- [class.color-extra-0]="color-extra-0i" -->
                   <li
                     *ngFor="let color of product.colors; let i = index"
-                    [class.active]="i == colorIndex"
-                    (click)="changeColor(i)"
+                    [class.active]="
+                      product._id == selectedProduct?._id
+                        ? i == colorIndex
+                        : i == 0
+                    "
+                    (click)="changeColor(i, product)"
                   >
                     <span
                       [ngStyle]="
-                        i == colorIndex ? { 'border-color': color.hex } : null
+                        (
+                          product._id == selectedProduct?._id
+                            ? i == colorIndex
+                            : i == 0
+                        )
+                          ? { 'border-color': color.hex }
+                          : null
                       "
                     >
                       <span
@@ -468,7 +528,7 @@
       </div>
       <!-- END: Pagination -->
 
-      <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Load more</a>
+      <!-- <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Load more</a> -->
     </div>
   </div>
   <!-- End .container -->
@@ -493,7 +553,7 @@
   </div>
 </div> -->
 
-<div class="service-area">
+<!-- <div class="service-area">
   <div class="container">
     <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
       <div class="col">
@@ -549,4 +609,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

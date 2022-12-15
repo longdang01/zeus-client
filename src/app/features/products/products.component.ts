@@ -11,6 +11,7 @@ declare var $: any;
 export class ProductsComponent implements OnInit, AfterViewInit {
   
   colorIndex: number = 0;
+  selectedProduct!: any;
   searchForm = {
     category: "",
     subCategory: "",
@@ -66,7 +67,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     });   
   }
 
-  changeColor = (index: number) => {
+  changeColor = (index: number, product: any) => {
+    this.selectedProduct = product;
     this.colorIndex = index;
   }
 

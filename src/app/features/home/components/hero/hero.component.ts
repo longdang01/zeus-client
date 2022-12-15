@@ -14,27 +14,33 @@ export class HeroComponent implements OnInit {
 
   constructor(private slideService: SlideService) {
 
-   }
+  }
 
   ngOnInit(): void {
+    $('.axil-main-slider-area').addClass('hideItem');
+    $('.axil-main-slider-area').removeClass('showItem');
+
     setTimeout(() => {
       this.initSlide();
-    }, 1000);
+      $('.axil-main-slider-area').removeClass('hideItem');
+      $('.axil-main-slider-area').addClass('showItem');
+    }, 500);
+
   }
   
   initSlide = () => {
-    // hero
-    $(".slider-activation-two").slick({
-      infinite: true,
-      autoplay: false,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      dots: true,
-      fade: true,
-      adaptiveHeight: true,
-      cssEase: "linear",
-      speed: 400,
-    });
+      // hero
+      $(".slider-activation-two").slick({
+        infinite: true,
+        autoplay: false,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        dots: true,
+        fade: true,
+        adaptiveHeight: true,
+        cssEase: "linear",
+        speed: 400,
+      });
   }
 }
