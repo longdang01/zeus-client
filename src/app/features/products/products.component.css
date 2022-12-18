@@ -1,4 +1,4 @@
-.product-content .price {
+/* .product-content .price {
   font-size: 14px !important;
   font-weight: 600 !important;
   color: grey !important;
@@ -13,3 +13,22 @@
 .axil-product .cart-action li.select-option a:before {
   background: black !important;
 }
+
+.category-select .dropdown-menu {
+  width: 100%;
+}
+
+.category-select .dropdown-menu li a {
+  font-size: 15px !important;
+  font-weight: bold !important;
+}
+
+#btn-dropdownCategory {
+  margin: 0 !important;
+}
+
+.single-select {
+  font-size: 15px !important;
+  font-weight: bold !important;
+  margin: 0 !important;
+} */

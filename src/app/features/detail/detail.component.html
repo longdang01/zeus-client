@@ -105,9 +105,7 @@
                 <span
                   *ngIf="!selectedColor?.sales[0]"
                   class="price current-price"
-                  >{{
-                    selectedColor?.price | currency : "VND" : "symbol"
-                  }}</span
+                  >{{ selectedColor?.price | number }} VND</span
                 >
 
                 <span
@@ -118,8 +116,9 @@
                   class="price current-price"
                   >{{
                     selectedColor?.price - selectedColor?.sales[0].value
-                      | currency : "VND" : "symbol"
-                  }}</span
+                      | number
+                  }}
+                  VND</span
                 >
                 <span
                   *ngIf="
@@ -129,50 +128,23 @@
                   class="price current-price"
                   >{{
                     selectedColor?.price *
-                      ((100 - selectedColor?.sales[0].value) / 100)
-                      | currency : "VND" : "symbol"
-                  }}</span
+                      ((100 - selectedColor?.sales[0].value) / 100) | number
+                  }}
+                  VND</span
                 >
-                <span *ngIf="selectedColor?.sales[0]" class="price old-price">{{
-                  selectedColor?.price | currency : "VND" : "symbol"
-                }}</span>
+                <span *ngIf="selectedColor?.sales[0]" class="price old-price"
+                  >{{ selectedColor?.price | number }} VND</span
+                >
               </span>
-              <div class="product-rating">
-                <!-- star-rating -->
-                <div class="">
-                  Tình trạng:
-                  <span
-                    [class]="selectedSize?.quantity > 0 ? 'available' : 'sold'"
-                  >
-                    {{
-                      selectedSize?.quantity > 0
-                        ? "Còn " + selectedSize?.quantity + " sản phẩm"
-                        : "Hết hàng"
-                    }}
-                  </span>
-                  <!-- <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="far fa-star"></i> -->
-                </div>
-                <div class="review-link">
-                  <!-- <a href="#">(<span>2</span> customer reviews)</a> -->
-                </div>
-              </div>
+
               <ul class="product-meta">
-                <li>
-                  <i class="fal fa-check"></i>Bảo hành trong 15 ngày nếu có lỗi,
-                  hư hỏng
-                </li>
-                <li>
-                  <i class="fal fa-check"></i>Hỗ trợ đổi kích cỡ khi sản phẩm
-                  còn nguyên vẹn
-                </li>
-                <li>
+                <li>Nguồn gốc: {{ product?.origin }}</li>
+                <li>Chất liệu: {{ product?.material }}</li>
+                <li>Phong cách: {{ product?.style }}</li>
+                <!-- <li>
                   <i class="fal fa-check"></i>Đơn giá hợp lý tương xứng với chất
                   lượng
-                </li>
+                </li> -->
               </ul>
               <p class="description">
                 <!-- In ornare lorem ut est dapibus, ut tincidunt nisi pretium.
@@ -225,6 +197,30 @@
                 <!-- End Product Variation  -->
               </div>
 
+              <div class="product-rating">
+                <!-- star-rating -->
+                <div class="">
+                  <h6 class="product-rating__title">Tình trạng:</h6>
+                  <span
+                    [class]="selectedSize?.quantity > 0 ? 'available' : 'sold'"
+                  >
+                    {{
+                      selectedSize?.quantity > 0
+                        ? "Còn " + selectedSize?.quantity + " sản phẩm"
+                        : "Hết hàng"
+                    }}
+                  </span>
+                  <!-- <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i> -->
+                </div>
+                <div class="review-link">
+                  <!-- <a href="#">(<span>2</span> customer reviews)</a> -->
+                </div>
+              </div>
+
               <!-- Start Product Action Wrapper  -->
               <div class="product-action-wrapper d-flex-center">
                 <!-- Start Quentity Action  -->
@@ -275,7 +271,7 @@
             >Mô tả</a
           >
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
           <a
             id="additional-info-tab"
             data-bs-toggle="tab"
@@ -285,7 +281,7 @@
             aria-selected="false"
             >Thông tin bổ sung</a
           >
-        </li>
+        </li> -->
         <li class="nav-item" role="presentation">
           <a
             id="reviews-tab"
@@ -307,7 +303,15 @@
         >
           <div class="product-desc-wrapper">
             <div class="row">
-              <div [innerHTML]="product?.description"></div>
+              <p *ngIf="!product?.description" class="reviews-wrapper">
+                (Chưa cập nhật mô tả, vui lòng chờ hoặc liên hệ với shop qua các
+                nền tảng socials)
+              </p>
+              <div
+                *ngIf="product?.description"
+                class="product-desc-wrapper__inner"
+                [innerHTML]="product?.description"
+              ></div>
               <!-- <div class="col-lg-6 mb--30">
                 <div class="single-desc">
                   <h5 class="title">Specifications:</h5>
@@ -371,7 +375,7 @@
           </div>
           <!-- End .product-desc-wrapper -->
         </div>
-        <div
+        <!-- <div
           class="tab-pane fade"
           id="additional-info"
           role="tabpanel"
@@ -393,50 +397,22 @@
                     <th>Phong cách</th>
                     <td>{{ product?.style }}</td>
                   </tr>
-                  <!-- <tr>
-                    <th>Door Pass Through</th>
-                    <td>24</td>
-                  </tr>
-                  <tr>
-                    <th>Frame</th>
-                    <td>Aluminum</td>
-                  </tr>
-                  <tr>
-                    <th>Weight (w/o wheels)</th>
-                    <td>20 LBS</td>
-                  </tr>
-                  <tr>
-                    <th>Weight Capacity</th>
-                    <td>60 LBS</td>
-                  </tr>
-                  <tr>
-                    <th>Width</th>
-                    <td>24″</td>
-                  </tr>
-                  <tr>
-                    <th>Handle height (ground to handle)</th>
-                    <td>37-45″</td>
-                  </tr>
-                  <tr>
-                    <th>Wheels</th>
-                    <td>Aluminum</td>
-                  </tr>
-                  <tr>
-                    <th>Size</th>
-                    <td>S, M, X, XL</td>
-                  </tr> -->
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
+        </div> -->
         <div
           class="tab-pane fade"
           id="reviews"
           role="tabpanel"
           aria-labelledby="reviews-tab"
         >
-          <div class="reviews-wrapper">
+          <p *ngIf="!product?.sizeGuide" class="reviews-wrapper">
+            (Chưa cập nhật bảng size, vui lòng chờ hoặc liên hệ với shop qua các
+            nền tảng socials)
+          </p>
+          <div *ngIf="product?.sizeGuide" class="reviews-wrapper">
             <img [src]="product?.sizeGuide" alt="" />
           </div>
         </div>

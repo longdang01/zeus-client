@@ -16,6 +16,8 @@ export class DetailComponent implements OnInit {
   // init detail
   product!: any;
   id!: string;
+  colorIndex!: number;
+
 
   // init selectedColor, selectedSize
   selectedColor!: any;
@@ -53,10 +55,8 @@ export class DetailComponent implements OnInit {
       if(!this.product) { alert("Sản phẩm không tồn tại.") }
       else {
   
-        this.selectedColor = this.product.colors[0];
-        this.selectedSize = this.product.colors[0].sizes[0];
-        console.log(this.product)
-        
+        this.selectedColor = this.product.colors[(this.colorIndex) ? this.colorIndex : 0];
+        this.selectedSize = this.product.colors[(this.colorIndex) ? this.colorIndex : 0].sizes[0];
         //
         // this.quantityRanger();
         this.initSlick();
@@ -68,6 +68,7 @@ export class DetailComponent implements OnInit {
   getParams(queryParams: any){
     queryParams.subscribe((params:any) => {
       this.id = params['product'];
+      this.colorIndex = params['index'];
     });
   }
 
@@ -86,8 +87,6 @@ export class DetailComponent implements OnInit {
         maxQuantity: Number(this.selectedSize.quantity),
     }
 
-    console.log(this.postCart)
-    
     if(customerId) {
 
       this.cartDetailService.create(this.postCart)

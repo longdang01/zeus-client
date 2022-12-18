@@ -37,6 +37,24 @@ export class ProductService {
     return this.httpClient.post(apiUrl, data, this.httpOptions)
   }
 
+  // getNew
+  getNew(): Observable<any> {
+    const apiUrl = `${this.API_URL}/get-new`;
+    return this.httpClient.get(apiUrl)
+  }
+
+  // getBestSellers
+  getBestSellers(): Observable<any> {
+    const apiUrl = `${this.API_URL}/get-bestsellers`;
+    return this.httpClient.get(apiUrl)
+  }
+  
+  // getSales
+  getSales(): Observable<any> {
+    const apiUrl = `${this.API_URL}/get-sales`;
+    return this.httpClient.get(apiUrl)
+  }
+
   // create
   create(data: Product): Observable<any> {
     const apiUrl = `${this.API_URL}/`;

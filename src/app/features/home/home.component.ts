@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as sal from 'sal.js';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { ProductService } from 'src/app/core/services/product.service';
 import { ScriptService } from 'src/app/core/services/script.service';
 import { SlideService } from 'src/app/core/services/slide.service';
 import { SubCategoryService } from 'src/app/core/services/subCategory.service';
@@ -16,9 +17,13 @@ export class HomeComponent implements OnInit {
 
   subCategories: any = [];
   slides: any = [];
+  productNews: any = [];
+  productBestSellers: any = [];
+  productSales: any = [];
 
   constructor(private scriptService: ScriptService,
     private categoryService: CategoryService,
+    private productService: ProductService,
     private subCategoryService: SubCategoryService,
     private slideService: SlideService,
     private router: Router, private route:ActivatedRoute) {
@@ -27,10 +32,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    
-    this.searchCategories();
+    // this.searchCategories();
     this.searchSlide();
+    this.searchProductNew();   
+    this.searchProductBestSeller();
+    this.searchProductSales();
+
+
     //handle ui
     // 'sal',
     this.scriptService.load(
@@ -39,6 +47,7 @@ export class HomeComponent implements OnInit {
       // console.log('script loaded ', data);
     }).catch(error => console.log(error));
     
+
     // this.initSlide();
     this.magnificPopupActivation();
     this.axilMasonary();
@@ -54,9 +63,30 @@ export class HomeComponent implements OnInit {
   searchSlide=  () => {
     this.slideService.get().subscribe((res: any) => {
       this.slides = res;
-      console.log(this.slides)
-      // this.initSlide();
       // console.log(this.slides)
+      // this.initSlideHero();
+      // console.log(this.slides)
+    }); 
+  }
+
+  searchProductNew = () => {
+    this.productService.getNew().subscribe((res: any) => {
+      this.productNews = res.products;
+      // console.log(this.slides)
+      // this.initSlideHero();
+      // console.log(this.slides)
+    }); 
+  }
+  
+  searchProductBestSeller =  () => {
+    this.productService.getBestSellers().subscribe((res: any) => {
+      this.productBestSellers = res.products;
+    }); 
+  }
+
+  searchProductSales =  () => {
+    this.productService.getSales().subscribe((res: any) => {
+      this.productSales = res.products;
     }); 
   }
 
@@ -128,43 +158,44 @@ export class HomeComponent implements OnInit {
     // });
 
     // best sellers
-    $(".new-arrivals-product-activation-2").slick({
-      infinite: true,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      arrows: true,
-      dots: false,
-      prevArrow:
-        '<button class="slide-arrow prev-arrow"><i class="fal fa-long-arrow-left"></i></button>',
-      nextArrow:
-        '<button class="slide-arrow next-arrow"><i class="fal fa-long-arrow-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1199,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-          },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          },
-        },
-        {
-          breakpoint: 576,
-          settings: {
-            variableWidth: true,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          },
-        },
-      ],
-    });
+    // $(".new-arrivals-product-activation-2").slick({
+    //   infinite: true,
+    //   slidesToShow: 4,
+    //   slidesToScroll: 4,
+    //   arrows: true,
+    //   dots: false,
+    //   prevArrow:
+    //     '<button class="slide-arrow prev-arrow"><i class="fal fa-long-arrow-left"></i></button>',
+    //   nextArrow:
+    //     '<button class="slide-arrow next-arrow"><i class="fal fa-long-arrow-right"></i></button>',
+    //   responsive: [
+    //     {
+    //       breakpoint: 1199,
+    //       settings: {
+    //         slidesToShow: 3,
+    //         slidesToScroll: 3,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 991,
+    //       settings: {
+    //         slidesToShow: 2,
+    //         slidesToScroll: 2,
+    //       },
+    //     },
+    //     {
+    //       breakpoint: 576,
+    //       settings: {
+    //         variableWidth: true,
+    //         slidesToShow: 1,
+    //         slidesToScroll: 1,
+    //       },
+    //     },
+    //   ],
+    // });
   }
 
+  //video
   magnificPopupActivation = () => {
       var yPopup = $(".popup-youtube");
       if (yPopup.length) {
@@ -191,6 +222,7 @@ export class HomeComponent implements OnInit {
       }
   }
 
+  //click new arrivals
   axilMasonary = function () {
     $(".axil-isotope-wrapper").imagesLoaded(function () {
       // filter items on button click

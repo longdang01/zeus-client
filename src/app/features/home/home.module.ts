@@ -8,6 +8,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { NewArrivalComponent } from './components/new-arrival/new-arrival.component';
 import { BestSellerComponent } from './components/best-seller/best-seller.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SalesComponent } from './components/sales/sales.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     HeroComponent,
     CategoriesComponent,
     NewArrivalComponent,
-    BestSellerComponent
+    BestSellerComponent,
+    SalesComponent
   ],
   imports: [
     CommonModule,

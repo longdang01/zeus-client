@@ -7,7 +7,7 @@ declare var $: any;
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.css']
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent implements OnInit, AfterViewInit {
 
   // slides: any = [];
   @Input() slides: any = [];
@@ -17,18 +17,28 @@ export class HeroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    $('.axil-main-slider-area').addClass('hideItem');
-    $('.axil-main-slider-area').removeClass('showItem');
+    // this.setUp();
+  }
 
-    setTimeout(() => {
-      this.initSlide();
-      $('.axil-main-slider-area').removeClass('hideItem');
-      $('.axil-main-slider-area').addClass('showItem');
-    }, 500);
-
+  ngAfterViewInit(): void {
+    this.setUp();
   }
   
+  setUp = () => {
+    $(document).ready(() => {
+      $('.axil-main-slider-area').addClass('hideItem');
+      $('.axil-main-slider-area').removeClass('showItem');
+  
+      setTimeout(() => {
+        this.initSlide();
+        $('.axil-main-slider-area').removeClass('hideItem');
+        $('.axil-main-slider-area').addClass('showItem');
+      }, 500);
+    })
+  }
+
   initSlide = () => {
+    $(document).ready(() => {
       // hero
       $(".slider-activation-two").slick({
         infinite: true,
@@ -42,5 +52,6 @@ export class HeroComponent implements OnInit {
         cssEase: "linear",
         speed: 400,
       });
+    })
   }
 }

@@ -27,8 +27,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   // pagination
   page: number = 1;
   count: number = 0;
-  pageSize: number = 10;
-  pageSizes: any = [10, 20, 30, 40, 50];
+  pageSize: number = 12;
+  pageSizes: any = [12, 24, 36, 48, 60];
 
   constructor(
     private productService: ProductService,

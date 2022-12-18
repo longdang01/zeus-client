@@ -1,1 +1,241 @@
-<p>new-arrival works!</p>
+<!-- Start Explore Product Area  -->
+<div class="axil-product-area bg-color-white axil-section-gap pb--0">
+  <div class="container">
+    <div class="product-area pb--20">
+      <div class="axil-isotope-wrapper">
+        <div class="product-isotope-heading">
+          <div class="section-title-wrapper">
+            <span class="title-highlighter highlighter-primary"
+              ><i class="far fa-shopping-basket"></i> Sản phẩm mới</span
+            >
+            <h2 class="title">New Arrival</h2>
+          </div>
+          <!-- <div class="isotope-button">
+            <button data-filter="*" class="is-checked">
+              <span class="filter-text">All</span>
+            </button>
+            <button data-filter=".art" class="">
+              <span class="filter-text">Art</span>
+            </button>
+            <button data-filter=".music">
+              <span class="filter-text">Music</span>
+            </button>
+            <button data-filter=".photography">
+              <span class="filter-text">Photography</span>
+            </button>
+            <button data-filter=".sports">
+              <span class="filter-text">Sports</span>
+            </button>
+          </div> -->
+        </div>
+        <div class="row row--15" style="height: auto">
+          <!-- //product -->
+          <div
+            *ngFor="let product of productNews; let i = index"
+            class="col-xl-3 col-lg-4 col-sm-6"
+          >
+            <div class="axil-product product-style-one has-color-pick mt--40">
+              <div class="thumbnail">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/detail']"
+                  [queryParams]="{
+                    product: product._id,
+                    name: product.productName | slugify,
+                    index: colorIndex
+                  }"
+                >
+                  <!-- <img
+                [src]="product.colors[product._id == selectedProduct?._id ? colorIndex : 0]?.images[0].picture"
+                alt="Product Images"
+              /> -->
+                  <img
+                    [src]="
+                      product.colors[
+                        product._id == selectedProduct?._id ? colorIndex : 0
+                      ]?.images[0].picture
+                    "
+                    alt="Product Images"
+                  />
+                </a>
+                <div class="label-block label-right">
+                  <div
+                    *ngIf="
+                      product.colors[
+                        product._id == selectedProduct?._id ? colorIndex : 0
+                      ]?.sales[0]
+                    "
+                    class="product-badget"
+                  >
+                    {{
+                      product.colors[
+                        product._id == selectedProduct?._id ? colorIndex : 0
+                      ]?.sales[0].value
+                    }}{{
+                      product.colors[
+                        product._id == selectedProduct?._id ? colorIndex : 0
+                      ]?.sales[0].symbol
+                    }}
+                    Giảm
+                  </div>
+                </div>
+                <div class="product-hover-action">
+                  <ul class="cart-action">
+                    <!-- <li class="wishlist">
+                  <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                </li> -->
+                    <li class="select-option">
+                      <a
+                        href="javascript:;"
+                        [routerLink]="['/detail']"
+                        [queryParams]="{
+                          product: product._id,
+                          name: product.productName | slugify,
+                          index: colorIndex
+                        }"
+                        >Mua hàng</a
+                      >
+                    </li>
+                    <!-- <li class="quickview">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quick-view-modal"
+                    ><i class="far fa-eye"></i
+                  ></a>
+                </li> -->
+                  </ul>
+                </div>
+              </div>
+              <div class="product-content">
+                <div class="inner">
+                  <h5 class="title">
+                    <a
+                      href="javascript:;"
+                      [routerLink]="['/detail']"
+                      [queryParams]="{
+                        product: product._id,
+                        name: product.productName | slugify,
+                        index: colorIndex
+                      }"
+                      >{{ product.productName }}</a
+                    >
+                  </h5>
+                  <div class="product-price-variant">
+                    <span
+                      *ngIf="
+                        !product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0]
+                      "
+                      class="price current-price"
+                      >{{
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.price | number
+                      }}
+                      VND</span
+                    >
+
+                    <span
+                      *ngIf="
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0] &&
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0].symbol == 'K'
+                      "
+                      class="price current-price"
+                      >{{
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.price -
+                          product.colors[
+                            product._id == selectedProduct?._id ? colorIndex : 0
+                          ]?.sales[0].value | number
+                      }}
+                      VND</span
+                    >
+                    <span
+                      *ngIf="
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0] &&
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0].symbol == '%'
+                      "
+                      class="price current-price"
+                      >{{
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.price *
+                          ((100 -
+                            product.colors[
+                              product._id == selectedProduct?._id
+                                ? colorIndex
+                                : 0
+                            ]?.sales[0].value) /
+                            100) | number
+                      }}
+                      VND</span
+                    >
+                    <span
+                      *ngIf="
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.sales[0]
+                      "
+                      class="price old-price"
+                      >{{
+                        product.colors[
+                          product._id == selectedProduct?._id ? colorIndex : 0
+                        ]?.price | number
+                      }}
+                      VND</span
+                    >
+                    <!-- <span class="price current-price">$30</span>
+                <span class="price old-price">$30</span> -->
+                  </div>
+                  <div class="color-variant-wrapper">
+                    <ul class="color-variant">
+                      <!-- [class.color-extra-0]="color-extra-0i" -->
+                      <li
+                        *ngFor="let color of product.colors; let i = index"
+                        [class.active]="
+                          product._id == selectedProduct?._id
+                            ? i == colorIndex
+                            : i == 0
+                        "
+                        (click)="changeColor(i, product)"
+                      >
+                        <span
+                          [ngStyle]="
+                            (
+                              product._id == selectedProduct?._id
+                                ? i == colorIndex
+                                : i == 0
+                            )
+                              ? { 'border-color': color.hex }
+                              : null
+                          "
+                        >
+                          <span
+                            class="color"
+                            [ngStyle]="{ 'background-color': color.hex }"
+                          ></span>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Expolre Product Area  -->

@@ -16,11 +16,11 @@
         </div>
       </div>
       <div class="col-lg-6 col-md-4">
-        <div class="inner">
+        <!-- <div class="inner">
           <div class="bradcrumb-thumb">
             <img src="assets/images/product/product-45.png" alt="Image" />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -209,7 +209,8 @@
               [routerLink]="['/detail']"
               [queryParams]="{
                 product: product._id,
-                name: product.productName | slugify
+                name: product.productName | slugify,
+                index: colorIndex
               }"
             >
               <!-- <img
@@ -257,7 +258,8 @@
                     [routerLink]="['/detail']"
                     [queryParams]="{
                       product: product._id,
-                      name: product.productName | slugify
+                      name: product.productName | slugify,
+                      index: colorIndex
                     }"
                     >Mua hàng</a
                   >
@@ -281,7 +283,8 @@
                   [routerLink]="['/detail']"
                   [queryParams]="{
                     product: product._id,
-                    name: product.productName | slugify
+                    name: product.productName | slugify,
+                    index: colorIndex
                   }"
                   >{{ product.productName }}</a
                 >
@@ -520,7 +523,7 @@
           >
           </pagination-controls>
         </div>
-        <select (change)="onTableSizeChange($event)" style="width: 80px">
+        <select (change)="onTableSizeChange($event)" style="width: 100px">
           <option *ngFor="let size of pageSizes" [value]="size">
             {{ size }}
           </option>

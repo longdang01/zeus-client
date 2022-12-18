@@ -1,9 +1,10 @@
-@import 
-"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap";
 :root {
-  --color-primary: #3577f0;
+  /* --color-primary: #3577f0; */
+  --color-primary: black;
   --light-primary: #8c71db;
-  --color-secondary: #ff497c;
+  /* --color-secondary: #ff497c; */
+  --color-secondary: #e8554e;
   --color-tertiary: #fab8c4;
   --color-white: #ffffff;
   --color-dark: #27272e;
@@ -1882,7 +1883,7 @@ select,
   border: 1px solid var(--color-border-light);
   border-radius: 6px;
   /* background: url(/assets/images/icons/arrow-icon.png) 95% center no-repeat */
-    /* rgba(0, 0, 0, 0); */
+  /* rgba(0, 0, 0, 0); */
   padding-right: 32px;
   font-size: var(--font-size-b1);
   line-height: var(--line-height-b1);
@@ -7283,8 +7284,8 @@ button.axil-btn.wishlist-btn:hover:before {
     position: fixed;
     top: 0;
     bottom: 0;
-    right: -250px;
-    width: 250px;
+    right: -350px;
+    width: 350px;
     background-color: var(--color-white);
     z-index: 100;
     transition: all 0.3s ease-in-out;
@@ -7305,7 +7306,7 @@ button.axil-btn.wishlist-btn:hover:before {
     transition: all 0.3s ease-in-out;
   }
   .header-main-nav .mainmenu-nav .mainmenu > li > a {
-    color: var(--color-body);
+    /* color: var(--color-body); */
     line-height: var(--line-height-b2) !important;
     height: auto !important;
     padding: 5px 0;
@@ -7348,7 +7349,7 @@ button.axil-btn.wishlist-btn:hover:before {
     .axil-submenu
     li
     a {
-    padding: 5px 10px;
+    padding: 5px 15px;
   }
   .header-main-nav
     .mainmenu-nav
@@ -7945,7 +7946,7 @@ body.open .closeMask {
   border: 2px solid var(--color-light);
 }
 @media only screen and (max-width: 767px) {
-  .category-select .single-select {
+  .single-select {
     width: 100%;
     background-position-x: 95%;
   }
@@ -8411,20 +8412,25 @@ body.open .closeMask {
 }
 .color-variant li > span {
   border: 2px solid rgba(0, 0, 0, 0);
-  width: 21px;
-  height: 21px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 5px;
+  /* border-radius: 50%; */
+  /* padding: 5px 13px; */
   transition: var(--transition);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 .color-variant li > span .color {
   display: block;
-  width: 9px;
-  height: 9px;
+  width: 20px;
+  height: 20px;
   line-height: 1;
-  border-radius: 50%;
+  border-radius: 3px;
+  /* border-radius: 50%; */
   border: none;
 }
 .color-variant li.color-extra-01 span .color {
@@ -8504,9 +8510,10 @@ body.open .closeMask {
   border: 2px solid #f6f7fb;
   background: #fff;
   padding: 5px 13px;
-  border-radius: 30px;
-  min-width: 44px;
-  min-height: 44px;
+  /* border-radius: 30px; */
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9262,8 +9269,8 @@ body.open .closeMask {
   }
 }
 .single-product-content .inner .price-amount.price-offer-amount .old-price {
-  color: var(--color-body);
-  text-decoration: line-through;
+  color: var(--color-body) !important;
+  text-decoration: line-through !important;
 }
 .single-product-content .inner .price-amount.price-offer-amount .offer-badge {
   background-color: var(--color-chart03);
@@ -9276,7 +9283,7 @@ body.open .closeMask {
   font-family: var(--font-secondary);
 }
 .single-product-content .inner .product-meta {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 .single-product-content .inner .product-meta li {
   color: var(--color-primary);
@@ -9295,15 +9302,17 @@ body.open .closeMask {
   margin-bottom: 30px;
 }
 .single-product-content .inner .product-variation {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
 }
-.single-product-content .inner .product-variation .title {
+.single-product-content .inner .product-variation .title,
+.product-rating__title {
+  display: inline-block;
   font-weight: 500;
   font-size: 20px;
   margin-bottom: 0;
-  min-width: 114px;
+  min-width: 110px;
 }
 @media only screen and (max-width: 767px) {
   .single-product-content .inner .product-variation .title {
@@ -9324,8 +9333,8 @@ body.open .closeMask {
   li
   > span
   .color {
-  width: 11px;
-  height: 11px;
+  width: 20px;
+  height: 20px;
 }
 .single-product-content .inner .product-variation .variable-items-wrapper {
   display: flex;
