@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as sal from 'sal.js';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { NewsService } from 'src/app/core/services/news.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { ScriptService } from 'src/app/core/services/script.service';
 import { SlideService } from 'src/app/core/services/slide.service';
@@ -20,10 +21,12 @@ export class HomeComponent implements OnInit {
   productNews: any = [];
   productBestSellers: any = [];
   productSales: any = [];
+  newsList: any = [];
 
   constructor(private scriptService: ScriptService,
     private categoryService: CategoryService,
     private productService: ProductService,
+    private newsService: NewsService,
     private subCategoryService: SubCategoryService,
     private slideService: SlideService,
     private router: Router, private route:ActivatedRoute) {
@@ -37,7 +40,7 @@ export class HomeComponent implements OnInit {
     this.searchProductNew();   
     this.searchProductBestSeller();
     this.searchProductSales();
-
+    this.searchNews();
 
     //handle ui
     // 'sal',
@@ -89,6 +92,14 @@ export class HomeComponent implements OnInit {
       this.productSales = res.products;
     }); 
   }
+  
+  searchNews =  () => {
+    this.newsService.get().subscribe((res: any) => {
+      this.newsList = res;
+      console.log(res)
+    }); 
+  }
+
 
   initSlide = () => {
     // hero

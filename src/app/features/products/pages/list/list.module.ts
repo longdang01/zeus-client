@@ -1,23 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProductsRoutingModule } from './products-routing.module';
-import { ProductsComponent } from './products.component';
+import { ListRoutingModule } from './list-routing.module';
+import { ListComponent } from './list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [
-    ProductsComponent
+    ListComponent
   ],
   imports: [
     CommonModule,
-    RouterModule,
-    ProductsRoutingModule,
+    ListRoutingModule,
     NgxPaginationModule,
     SharedModule
   ]
 })
-export class ProductsModule { }
+export class ListModule { }

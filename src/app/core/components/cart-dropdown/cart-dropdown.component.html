@@ -15,12 +15,12 @@
           <div class="item-img">
             <a
               href="javascript:;"
-              [routerLink]="['/detail']"
+              [routerLink]="['/products/detail']"
               [queryParams]="{
                 product: cartDetail.product._id,
                 name: cartDetail.product.productName | slugify
               }"
-              ><img [src]="cartDetail.color.images[0].picture" alt=""
+              ><img [src]="cartDetail.color.images[0]?.picture" alt=""
             /></a>
             <button
               class="close-btn"
@@ -43,7 +43,7 @@
             <h3 class="item-title">
               <a
                 href="javascript:;"
-                [routerLink]="['/detail']"
+                [routerLink]="['/products/detail']"
                 [queryParams]="{
                   product: cartDetail.product._id,
                   name: cartDetail.product.productName | slugify

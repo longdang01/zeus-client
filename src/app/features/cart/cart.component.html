@@ -25,20 +25,20 @@
               <td class="product-thumbnail">
                 <a
                   href="javascript:;"
-                  [routerLink]="['/detail']"
+                  [routerLink]="['/products/detail']"
                   [queryParams]="{
                     product: cartDetail.product._id,
                     name: cartDetail.product.productName | slugify
                   }"
                   ><img
-                    [src]="cartDetail.color.images[0].picture"
+                    [src]="cartDetail.color.images[0]?.picture"
                     alt="Digital Product"
                 /></a>
               </td>
               <td class="product-title">
                 <a
                   href="javascript:;"
-                  [routerLink]="['/detail']"
+                  [routerLink]="['/products/detail']"
                   [queryParams]="{
                     product: cartDetail.product._id,
                     name: cartDetail.product.productName | slugify

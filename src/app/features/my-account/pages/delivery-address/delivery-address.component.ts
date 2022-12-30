@@ -13,10 +13,10 @@ export class DeliveryAddressComponent implements OnInit {
   deliveryAddressForm!: FormGroup;
   deliveryAddressId!: any;
   customerId: any = "";
-;
   title: string = ""; 
   state: number = 0;
   deliveryAddresses: any = [];
+  isDisabled: boolean = false;
 
   constructor(
     private deliveryAddressService: DeliveryAddressService,
@@ -52,9 +52,11 @@ export class DeliveryAddressComponent implements OnInit {
     this.title = (id) ? "Cập nhật địa chỉ" : "Thêm địa chỉ";
     this.state = (id) ? 1 : 0;
     this.deliveryAddressId = (id) && id;
-
+    this.isDisabled = false;
     if(id) {
       this.deliveryAddressService.getById(id).subscribe(res => {
+        if(res['isActive'] == 1) this.isDisabled = true;
+
         this.deliveryAddressForm.setValue({
           customer: this.customerId,
           deliveryAddressName: res['deliveryAddressName'],
@@ -64,7 +66,7 @@ export class DeliveryAddressComponent implements OnInit {
         });
       });
     } 
-
+    
     if(!id) {
       this.deliveryAddressForm = this.formBuilder.group({
         customer: this.customerId,
@@ -86,8 +88,8 @@ export class DeliveryAddressComponent implements OnInit {
             address.isActive = 0
             return address;
           } )
+
         }
-        
         this.deliveryAddresses.unshift(res);
         // $('#deliveryaddressModal').modal('hide');
       },

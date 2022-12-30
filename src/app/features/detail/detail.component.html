@@ -13,8 +13,8 @@
                     *ngFor="let image of selectedColor?.images"
                     class="thumbnail"
                   >
-                    <a [href]="image.picture" class="popup-zoom">
-                      <img [src]="image.picture" alt="Product Images" />
+                    <a [href]="image?.picture" class="popup-zoom">
+                      <img [src]="image?.picture" alt="Product Images" />
                     </a>
                   </div>
                   <!-- <div class="thumbnail">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="product-quick-view position-view">
                   <a
-                    [href]="selectedColor?.images[0].picture"
+                    [href]="selectedColor?.images[0]?.picture"
                     class="popup-zoom"
                   >
                     <i class="far fa-search-plus"></i>
@@ -73,7 +73,7 @@
                   *ngFor="let image of selectedColor?.images"
                   class="small-thumb-img"
                 >
-                  <img [src]="image.picture" alt="thumb image" />
+                  <img [src]="image?.picture" alt="thumb image" />
                 </div>
                 <!-- <div class="small-thumb-img">
                   <img

@@ -27,3 +27,14 @@
 .color-primary {
   color: var(--color-primary);
 }
+
+.form-group label {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.form-group input,
+select {
+  color: black;
+  border: 2px solid var(--color-primary);
+}

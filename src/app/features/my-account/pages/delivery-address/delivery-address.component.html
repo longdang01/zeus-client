@@ -4,8 +4,9 @@
       Theo mặc định, các địa chỉ sau sẽ được sử dụng trên trang thanh toán.
     </p>
     <button
-      class="btn btn-primary deliveryAddressForm-dropdown-btn"
+      class="btn deliveryAddressForm-dropdown-btn"
       (click)="getDeliveryAddress(null)"
+      style="color: #fff; background: var(--color-secondary)"
     >
       Thêm Địa Chỉ
     </button>
@@ -77,13 +78,13 @@
   <button class="card-close sidebar-close">
     <i class="fas fa-times"></i>
   </button>
-  <div class="header-search-wrap" style="width: 600px; height: 420px">
+  <div class="header-search-wrap" style="width: 600px; height: 500px">
     <div
       class="card-header"
       style="
         font-size: 15px;
         font-weight: 700;
-        margin-bottom: 30px;
+        margin-bottom: 100px;
         color: black;
       "
     >
@@ -131,13 +132,9 @@
           <div class="form-group">
             <label>Chọn loại địa chỉ <span>*</span></label>
             <select formControlName="isActive" required>
+              <option style="display: none" value="">Mặc định, phụ</option>
               <option value="1">Địa chỉ mặc định</option>
-              <option
-                value="0"
-                [disabled]="deliveryAddressForm.get('isActive')?.value == 1"
-              >
-                Địa chỉ phụ
-              </option>
+              <option value="0" [disabled]="isDisabled">Địa chỉ phụ</option>
             </select>
           </div>
 
@@ -164,6 +161,10 @@
     <div class="card-footer">
       <div style="text-align: end">
         <button
+          style="
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+          "
           class="btn btn-primary btn-updateDelivery sidebar-close"
           (click)="
             state === 0 ? createDeliveryAddress() : updateDeliveryAddress()

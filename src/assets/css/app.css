@@ -422,8 +422,58 @@ li {
   margin: 0 !important;
 }
 
-.single-product-content .inner .price-amount .price.old-price {
+/* .single-product-content .inner .price-amount .price.old-price { */
+.price.old-price {
   color: var(--color-body) !important;
   text-decoration: line-through !important;
   margin-left: 20px;
+}
+
+#orders__status-label {
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.axil-dashboard-aside .nav-link {
+  font-weight: bold;
+}
+
+.form-orders,
+.table-ordersDetails__header {
+  /* text-align: center; */
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 15px !important;
+  background: #e0e0e0;
+}
+
+.table-ordersDetails__header {
+  background: var(--color-secondary);
+}
+
+.table-ordersDetails__header .form-orders span {
+  color: var(--color-primary) !important;
+}
+
+.thumbnail {
+  border: 0 !important;
+}
+
+.blog-grid .content .title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.blog-grid .thumbnail {
+  padding: 0;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset !important;
+}
+
+.blog-grid .thumbnail img {
+  height: 200px ;
+  object-fit: cover;
 }

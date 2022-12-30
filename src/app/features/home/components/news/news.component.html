@@ -1,0 +1,91 @@
+<div class="axil-section-gap">
+  <div class="container">
+    <div class="section-title-wrapper section-title-center">
+      <span class="title-highlighter highlighter-primary"
+        ><i class="fas fa-fire"></i> Blog</span
+      >
+      <h3 class="title">Tin tức về Fashion mới nhất</h3>
+    </div>
+    <div class="row g-5">
+      <div *ngFor="let news of newsList; let i = index" class="col-lg-4">
+        <div class="content-blog blog-grid">
+          <div class="inner">
+            <div class="thumbnail">
+              <a href="javascript:;">
+                <img [src]="news.thumbnail" alt="Blog Images" />
+              </a>
+              <div class="blog-category">
+                <a href="#" style="color: black; font-weight: bold">Fashion</a>
+              </div>
+            </div>
+            <div class="content">
+              <h5 class="title">
+                <a href="javascript:;">{{ news.title }}</a>
+              </h5>
+              <div class="read-more-btn">
+                <a class="axil-btn right-icon" href="blog-details.html"
+                  >Đọc thêm <i class="fal fa-long-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-4">
+        <div class="content-blog blog-grid">
+          <div class="inner">
+            <div class="thumbnail">
+              <a href="blog-details.html">
+                <img src="assets/images/blog/blog-11.png" alt="Blog Images" />
+              </a>
+              <div class="blog-category">
+                <a href="#">Photography</a>
+              </div>
+            </div>
+            <div class="content">
+              <h5 class="title">
+                <a href="blog-details.html"
+                  >Important updates for listing and delisting your NFTs</a
+                >
+              </h5>
+
+              <div class="read-more-btn">
+                <a class="axil-btn right-icon" href="blog-details.html"
+                  >Read More <i class="fal fa-long-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="content-blog blog-grid">
+          <div class="inner">
+            <div class="thumbnail">
+              <a href="blog-details.html">
+                <img src="assets/images/blog/blog-12.png" alt="Blog Images" />
+              </a>
+              <div class="blog-category">
+                <a href="#">Music</a>
+              </div>
+            </div>
+            <div class="content">
+              <h5 class="title">
+                <a href="blog-details.html"
+                  >10 tips for avoiding scams and staying safe on the
+                  decentralized web</a
+                >
+              </h5>
+
+              <div class="read-more-btn">
+                <a class="axil-btn right-icon" href="blog-details.html"
+                  >Read More <i class="fal fa-long-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

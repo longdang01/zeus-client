@@ -38,7 +38,7 @@
               <div class="thumbnail">
                 <a
                   href="javascript:;"
-                  [routerLink]="['/detail']"
+                  [routerLink]="['/products/detail']"
                   [queryParams]="{
                     product: product._id,
                     name: product.productName | slugify,
@@ -46,14 +46,14 @@
                   }"
                 >
                   <!-- <img
-                  [src]="product.colors[product._id == selectedProduct?._id ? colorIndex : 0]?.images[0].picture"
+                  [src]="product.colors[product._id == selectedProduct?._id ? colorIndex : 0]?.images[0]?.picture"
                   alt="Product Images"
                 /> -->
                   <img
                     [src]="
                       product.colors[
                         product._id == selectedProduct?._id ? colorIndex : 0
-                      ]?.images[0].picture
+                      ]?.images[0]?.picture
                     "
                     alt="Product Images"
                   />
@@ -87,7 +87,7 @@
                     <li class="select-option">
                       <a
                         href="javascript:;"
-                        [routerLink]="['/detail']"
+                        [routerLink]="['/products/detail']"
                         [queryParams]="{
                           product: product._id,
                           name: product.productName | slugify,
@@ -112,7 +112,7 @@
                   <h5 class="title">
                     <a
                       href="javascript:;"
-                      [routerLink]="['/detail']"
+                      [routerLink]="['/products/detail']"
                       [queryParams]="{
                         product: product._id,
                         name: product.productName | slugify,

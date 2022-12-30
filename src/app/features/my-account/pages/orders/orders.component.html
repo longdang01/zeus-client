@@ -52,19 +52,36 @@
             {{ orders.orderDate.slice(0, 10) | date : "dd/MM/yyyy" }}
           </td>
           <td>
-            {{
-              orders.status == 0
-                ? "Chờ xác nhận"
-                : orders.status == 1
-                ? "Chờ lấy hàng"
-                : orders.status == 2
-                ? "Đang giao"
-                : orders.status == 3
-                ? "Đã giao"
-                : orders.status == 4
-                ? "Đã hủy"
-                : ""
-            }}
+            <span
+              [class]="
+                orders.status == 0
+                  ? 'bg-secondary'
+                  : orders.status == 1
+                  ? 'bg-primary'
+                  : orders.status == 2
+                  ? 'bg-warning'
+                  : orders.status == 3
+                  ? 'bg-success'
+                  : orders.status == 4
+                  ? 'bg-danger'
+                  : ''
+              "
+              id="orders__status-label"
+            >
+              {{
+                orders.status == 0
+                  ? "Chờ xác nhận"
+                  : orders.status == 1
+                  ? "Chờ lấy hàng"
+                  : orders.status == 2
+                  ? "Đang giao"
+                  : orders.status == 3
+                  ? "Đã giao"
+                  : orders.status == 4
+                  ? "Đã hủy"
+                  : ""
+              }}
+            </span>
           </td>
           <td>
             {{ orders.total | currency : "VND" : "symbol" }} cho
@@ -136,7 +153,7 @@
   <button class="card-close sidebar-close">
     <i class="fas fa-times"></i>
   </button>
-  <div class="header-search-wrap" style="width: 1000px; height: 500px">
+  <div class="header-search-wrap" style="width: 800px; height: 800px">
     <div
       class="card-header"
       style="
@@ -146,14 +163,18 @@
         color: black;
       "
     >
-      Chi tiết đơn hàng
+      Cảm ơn bạn đã đặt đơn hàng
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-lg-12">
-          <div class="form-orders">
-            <label for="exampleInputEmail1">Mã đơn hàng:</label>
-            <span>{{ ordersItem.ordersCode }}</span>
+          <div class="form-orders" style="background: var(--color-secondary)">
+            <label for="exampleInputEmail1" style="color: #fff"
+              >Mã đơn hàng:</label
+            >
+            <span style="color: #fff !important">{{
+              ordersItem.ordersCode
+            }}</span>
             <!-- <input
               type="text"
               class="form-control"
@@ -243,12 +264,15 @@
           </div>
         </div>
         <div class="col-lg-12" style="margin-top: 50px">
-          <div style="padding-left: 5px; font-weight: 600; margin-bottom: 20px">
-            Danh sách sản phẩm đã đặt
+          <div
+            class="table-ordersDetails__header"
+            style="padding-left: 10px; font-weight: 600; color: #fff"
+          >
+            Danh sách sản phẩm
           </div>
           <table class="table table-ordersDetails">
             <thead>
-              <tr>
+              <tr class="">
                 <th scope="col" style="font-size: 15px; font-weight: 600">
                   Sản phẩm
                 </th>
@@ -256,7 +280,7 @@
                   scope="col"
                   style="font-size: 15px; font-weight: 600; text-align: center"
                 >
-                  Thành tiền (VND)
+                  Tổng (VND)
                 </th>
                 <th
                   scope="col"
@@ -313,7 +337,7 @@
                       value="0"
                       [disabled]="ordersDetail.orders.status != 3"
                     >
-                      Hoàn thành
+                      Hàng không có vấn đề
                     </option>
                     <option
                       value="1"

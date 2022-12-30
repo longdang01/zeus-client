@@ -57,13 +57,13 @@
           <div class="thumbnail">
             <a
               href="javascript:;"
-              [routerLink]="['/detail']"
+              [routerLink]="['/products/detail']"
               [queryParams]="{
                 product: product._id,
                 name: product.productName | slugify
               }"
             >
-              <img [src]="product.colors[0].images[0].picture" alt="" />
+              <img [src]="product.colors[0]?.images[0]?.picture" alt="" />
             </a>
           </div>
           <div class="product-content">
@@ -80,7 +80,7 @@
             <h6 class="product-title">
               <a
                 href="javascript:;"
-                [routerLink]="['/detail']"
+                [routerLink]="['/products/detail']"
                 [queryParams]="{
                   product: product._id,
                   name: product.productName | slugify
@@ -101,7 +101,7 @@
               <a
                 href="javascript:;"
                 class="cart-btn"
-                [routerLink]="['/detail']"
+                [routerLink]="['/products/detail']"
                 [queryParams]="{
                   product: product._id,
                   name: product.productName | slugify

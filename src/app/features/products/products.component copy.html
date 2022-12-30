@@ -1,0 +1,589 @@
+<div class="axil-breadcrumb-area">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="inner">
+          <ul class="axil-breadcrumb">
+            <li class="axil-breadcrumb-item">
+              <a href="index.html">Trang chủ</a>
+            </li>
+            <li class="separator"></li>
+            <li class="axil-breadcrumb-item active" aria-current="page">
+              Cửa hàng
+            </li>
+          </ul>
+          <h1 class="title">Cửa hàng</h1>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-4">
+        <!-- <div class="inner">
+          <div class="bradcrumb-thumb">
+            <img src="assets/images/product/product-45.png" alt="Image" />
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="axil-shop-area axil-section-gap bg-color-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="axil-shop-top">
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="category-select">
+                <!-- Start Single Select  -->
+                <div class="dropdown">
+                  <!-- btn btn-secondary dropdown-toggle  -->
+                  <button
+                    id="btn-dropdownCategory"
+                    class="single-select"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <!-- Tất cả sản phẩm -->
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a
+                        [routerLink]="['/products']"
+                        (click)="selectCategory(0, 'Tất cả sản phẩm')"
+                        style="display: block"
+                      >
+                        Tất cả sản phẩm
+                      </a>
+                    </li>
+                    <li *ngFor="let category of categories">
+                      <div
+                        class="axil-submenu-header"
+                        style="padding-left: 20px"
+                      >
+                        {{ category.categoryName }}
+                      </div>
+                      <ul class="">
+                        <li>
+                          <a
+                            [routerLink]="['/products']"
+                            [queryParams]="{
+                              category: category._id,
+                              name: category.categoryName | slugify
+                            }"
+                            [class]="
+                              category._id === searchForm.category
+                                ? 'activeCategory'
+                                : ''
+                            "
+                            (click)="
+                              selectCategory(
+                                $event,
+                                'Tất cả ' + category.categoryName
+                              )
+                            "
+                            >Tất cả {{ category.categoryName }}</a
+                          >
+                        </li>
+                        <li *ngFor="let subCategory of category.subCategories">
+                          <a
+                            [routerLink]="['/products']"
+                            [queryParams]="{
+                              subCategory: subCategory._id,
+                              name: subCategory.subCategoryName | slugify
+                            }"
+                            [class]="
+                              subCategory._id === searchForm.subCategory
+                                ? 'activeCategory'
+                                : ''
+                            "
+                            (click)="
+                              selectCategory(
+                                $event,
+                                subCategory.subCategoryName
+                              )
+                            "
+                            >{{ subCategory.subCategoryName }}</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- <select class="single-select">
+                  <option value="">Tất cả sản phẩm</option>
+                  <optgroup
+                    *ngFor="let category of categories"
+                    [label]="category.categoryName"
+                  >
+                    <option
+                      value=""
+                      [routerLink]="['/products']"
+                      [queryParams]="{
+                        category: category._id,
+                        name: category.categoryName | slugify
+                      }"
+                    >
+                      {{ category.categoryName }}
+                    </option>
+                    <option
+                      *ngFor="let subCategory of category.subCategories"
+                      [value]="subCategory._id"
+                    >
+                      {{ subCategory.subCategoryName }}
+                    </option>
+                  </optgroup>
+                </select> -->
+
+                <!-- <select class="single-select">
+                  <option>Tất cả sản phẩm</option>
+                  <option *ngFor="let category of categories">
+                    Tất cả {{ category.}}
+                  </option> -->
+                <!-- <option>Fashion</option>
+                  <option>Electronics</option>
+                  <option>Furniture</option>
+                  <option>Beauty</option> -->
+                <!-- </select> -->
+                <!-- End Single Select  -->
+
+                <!-- Start Single Select  -->
+                <!-- <select class="single-select">
+                  <option>Tất cả màu sắc</option>
+                  <option>Red</option>
+                  <option>Blue</option>
+                  <option>Green</option>
+                  <option>Pink</option>
+                </select> -->
+                <!-- End Single Select  -->
+
+                <!-- Start Single Select  -->
+                <!-- <select class="single-select">
+                  <option>Price Range</option>
+                  <option>0 - 100</option>
+                  <option>100 - 500</option>
+                  <option>500 - 1000</option>
+                  <option>1000 - 1500</option>
+                </select> -->
+                <!-- End Single Select  -->
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div
+                class="category-select mt_md--10 mt_sm--10 justify-content-lg-end"
+              >
+                <!-- Start Single Select  -->
+                <select class="single-select">
+                  <option>Mặc định</option>
+                  <!-- <option>Sắp xếp theo giá tăng dần</option>
+                  <option>Sort by Price</option>
+                  <option>Sort by Viewed</option> -->
+                </select>
+                <!-- End Single Select  -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row--15">
+      <div
+        *ngFor="
+          let product of products
+            | paginate
+              : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index
+        "
+        current-page="currentPage"
+        class="col-xl-3 col-lg-4 col-sm-6"
+      >
+        <div class="axil-product product-style-one has-color-pick mt--40">
+          <div class="thumbnail">
+            <a
+              href="javascript:;"
+              [routerLink]="['/products/detail']"
+              [queryParams]="{
+                product: product._id,
+                name: product.productName | slugify,
+                index: colorIndex
+              }"
+            >
+              <!-- <img
+                [src]="product.colors[product._id == selectedProduct?._id ? colorIndex : 0]?.images[0]?.picture"
+                alt="Product Images"
+              /> -->
+              <img
+                [src]="
+                  product.colors[
+                    product._id == selectedProduct?._id ? colorIndex : 0
+                  ]?.images[0]?.picture
+                "
+                alt="Product Images"
+              />
+            </a>
+            <div class="label-block label-right">
+              <div
+                *ngIf="
+                  product.colors[
+                    product._id == selectedProduct?._id ? colorIndex : 0
+                  ]?.sales[0]
+                "
+                class="product-badget"
+              >
+                {{ product.colors[ product._id == selectedProduct?._id ?
+                colorIndex : 0 ]?.sales[0].value }}{{ product.colors[
+                product._id == selectedProduct?._id ? colorIndex : 0
+                ]?.sales[0].symbol }} Giảm
+              </div>
+            </div>
+            <div class="product-hover-action">
+              <ul class="cart-action">
+                <!-- <li class="wishlist">
+                  <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                </li> -->
+                <li class="select-option">
+                  <a
+                    href="javascript:;"
+                    [routerLink]="['/products/detail']"
+                    [queryParams]="{
+                      product: product._id,
+                      name: product.productName | slugify,
+                      index: colorIndex
+                    }"
+                    >Mua hàng</a
+                  >
+                </li>
+                <!-- <li class="quickview">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quick-view-modal"
+                    ><i class="far fa-eye"></i
+                  ></a>
+                </li> -->
+              </ul>
+            </div>
+          </div>
+          <div class="product-content">
+            <div class="inner">
+              <h5 class="title">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/products/detail']"
+                  [queryParams]="{
+                    product: product._id,
+                    name: product.productName | slugify,
+                    index: colorIndex
+                  }"
+                  >{{ product.productName }}</a
+                >
+              </h5>
+              <div class="product-price-variant">
+                <span
+                  *ngIf="
+                    !product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0]
+                  "
+                  class="price current-price"
+                  >{{ product.colors[ product._id == selectedProduct?._id ?
+                  colorIndex : 0 ]?.price | number }} VND</span
+                >
+
+                <span
+                  *ngIf="
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0] &&
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0].symbol == 'K'
+                  "
+                  class="price current-price"
+                  >{{ product.colors[ product._id == selectedProduct?._id ?
+                  colorIndex : 0 ]?.price - product.colors[ product._id ==
+                  selectedProduct?._id ? colorIndex : 0 ]?.sales[0].value |
+                  number }} VND</span
+                >
+                <span
+                  *ngIf="
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0] &&
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0].symbol == '%'
+                  "
+                  class="price current-price"
+                  >{{ product.colors[ product._id == selectedProduct?._id ?
+                  colorIndex : 0 ]?.price * ((100 - product.colors[ product._id
+                  == selectedProduct?._id ? colorIndex : 0 ]?.sales[0].value) /
+                  100) | number }} VND</span
+                >
+                <span
+                  *ngIf="
+                    product.colors[
+                      product._id == selectedProduct?._id ? colorIndex : 0
+                    ]?.sales[0]
+                  "
+                  class="price old-price"
+                  >{{ product.colors[ product._id == selectedProduct?._id ?
+                  colorIndex : 0 ]?.price | number }} VND</span
+                >
+                <!-- <span class="price current-price">$30</span>
+                <span class="price old-price">$30</span> -->
+              </div>
+              <div class="color-variant-wrapper">
+                <ul class="color-variant">
+                  <!-- [class.color-extra-0]="color-extra-0i" -->
+                  <li
+                    *ngFor="let color of product.colors; let i = index"
+                    [class.active]="
+                      product._id == selectedProduct?._id
+                        ? i == colorIndex
+                        : i == 0
+                    "
+                    (click)="changeColor(i, product)"
+                  >
+                    <span
+                      [ngStyle]="
+                        (
+                          product._id == selectedProduct?._id
+                            ? i == colorIndex
+                            : i == 0
+                        )
+                          ? { 'border-color': color.hex }
+                          : null
+                      "
+                    >
+                      <span
+                        class="color"
+                        [ngStyle]="{ 'background-color': color.hex }"
+                      ></span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Single Product  -->
+      <!-- <div class="col-xl-3 col-lg-4 col-sm-6">
+        <div class="axil-product product-style-one has-color-pick mt--40">
+          <div class="thumbnail">
+            <a href="single-product.html">
+              <img
+                src="assets/images/product/electric/product-02.png"
+                alt="Product Images"
+              />
+            </a>
+            <div class="product-hover-action">
+              <ul class="cart-action">
+                <li class="wishlist">
+                  <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                </li>
+                <li class="select-option">
+                  <a href="cart.html">Add to Cart</a>
+                </li>
+                <li class="quickview">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quick-view-modal"
+                    ><i class="far fa-eye"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-content">
+            <div class="inner">
+              <h5 class="title">
+                <a href="single-product.html">Media remote</a>
+              </h5>
+              <div class="product-price-variant">
+                <span class="price current-price">$40</span>
+                <span class="price old-price">$50</span>
+              </div>
+              <div class="color-variant-wrapper">
+                <ul class="color-variant">
+                  <li class="color-extra-01 active">
+                    <span><span class="color"></span></span>
+                  </li>
+                  <li class="color-extra-02">
+                    <span><span class="color"></span></span>
+                  </li>
+                  <li class="color-extra-03">
+                    <span><span class="color"></span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- End Single Product  -->
+      <!-- <div class="col-xl-3 col-lg-4 col-sm-6">
+        <div class="axil-product product-style-one has-color-pick mt--40">
+          <div class="thumbnail">
+            <a href="single-product.html">
+              <img
+                src="assets/images/product/electric/product-03.png"
+                alt="Product Images"
+              />
+            </a>
+            <div class="label-block label-right">
+              <div class="product-badget">30% OFF</div>
+            </div>
+            <div class="product-hover-action">
+              <ul class="cart-action">
+                <li class="wishlist">
+                  <a href="wishlist.html"><i class="far fa-heart"></i></a>
+                </li>
+                <li class="select-option">
+                  <a href="cart.html">Add to Cart</a>
+                </li>
+                <li class="quickview">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#quick-view-modal"
+                    ><i class="far fa-eye"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-content">
+            <div class="inner">
+              <h5 class="title"><a href="single-product.html">HD camera</a></h5>
+              <div class="product-price-variant">
+                <span class="price current-price">$45</span>
+                <span class="price old-price">$60</span>
+              </div>
+              <div class="color-variant-wrapper">
+                <ul class="color-variant">
+                  <li class="color-extra-01 active">
+                    <span><span class="color"></span></span>
+                  </li>
+                  <li class="color-extra-02">
+                    <span><span class="color"></span></span>
+                  </li>
+                  <li class="color-extra-03">
+                    <span><span class="color"></span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- End Single Product  -->
+    </div>
+    <div class="text-center pt--30">
+      <!-- BEGIN: Pagination -->
+      <div class="d-flex align-items-center justify-content-between">
+        <div>
+          <pagination-controls
+            previousLabel=""
+            nextLabel=""
+            (pageChange)="onTableDataChange($event)"
+          >
+          </pagination-controls>
+        </div>
+        <select (change)="onTableSizeChange($event)" style="width: 100px">
+          <option *ngFor="let size of pageSizes" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+      <!-- END: Pagination -->
+
+      <!-- <a href="#" class="axil-btn btn-bg-lighter btn-load-more">Load more</a> -->
+    </div>
+  </div>
+  <!-- End .container -->
+</div>
+
+<!-- <div class="axil-newsletter-area axil-section-gap pt--0">
+  <div class="container">
+    <div class="etrade-newsletter-wrapper bg_image bg_image--5">
+      <div class="newsletter-content">
+        <span class="title-highlighter highlighter-primary2"
+          ><i class="fas fa-envelope-open"></i>Bản tin</span
+        >
+        <h2 class="title mb--40 mb_sm--30">Cập nhật thông tin mới</h2>
+        <div class="input-group newsletter-form">
+          <div class="position-relative newsletter-inner mb--15">
+            <input placeholder="example@gmail.com" type="text" />
+          </div>
+          <button type="submit" class="axil-btn mb--15">Đăng ký</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="service-area">
+  <div class="container">
+    <div class="row row-cols-xl-4 row-cols-sm-2 row-cols-1 row--20">
+      <div class="col">
+        <div class="service-box service-style-2">
+          <div class="icon">
+            <img src="./assets/images/icons/service1.png" alt="Service" />
+          </div>
+          <div class="content">
+            <h6 class="title">Giao hàng nhanh &amp; an toàn</h6>
+            <p>
+              Sản phẩm được giao đến người dùng một cách nhanh chòng và an toàn.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="service-box service-style-2">
+          <div class="icon">
+            <img src="./assets/images/icons/service2.png" alt="Service" />
+          </div>
+          <div class="content">
+            <h6 class="title">Đảm bảo hoàn tiền</h6>
+            <p>
+              Trong vòng 10 ngày nếu sản phẩm có lỗi, không đúng sản phẩm đã
+              đặt.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="service-box service-style-2">
+          <div class="icon">
+            <img src="./assets/images/icons/service3.png" alt="Service" />
+          </div>
+          <div class="content">
+            <h6 class="title">Chính sách đổi trả trong 24 giờ</h6>
+            <p>Trực tuyến 24 giờ nếu bạn có thắc mắc về sản phẩm.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="service-box service-style-2">
+          <div class="icon">
+            <img src="./assets/images/icons/service4.png" alt="Service" />
+          </div>
+          <div class="content">
+            <h6 class="title">Đội ngũ hỗ trợ chuyên nghiệp</h6>
+            <p>
+              Hỗ trợ, tư vấn khách hàng để chọn món đồ ưng ý và tuyệt vời nhất.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
