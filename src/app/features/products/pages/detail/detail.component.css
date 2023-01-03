@@ -48,3 +48,13 @@
   font-weight: bold !important;
   padding-left: 10px !important;
 }
+
+a.axil-btn.btn-bg-primary.background-disabled:before,
+button.axil-btn.btn-bg-primary.background-disabled:before {
+  background: grey !important;
+}
+
+a.axil-btn.btn-bg-primary.background-disabled,
+button.axil-btn.btn-bg-primary.background-disabled {
+  background: grey !important;
+}

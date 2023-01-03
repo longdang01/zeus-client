@@ -231,12 +231,20 @@
 
                 <!-- Start Product Action  -->
                 <ul class="product-action d-flex-center mb--0">
-                  <li class="add-to-cart">
+                  <li *ngIf="selectedSize?.isActive == 1" class="add-to-cart">
                     <a
                       href="javascript:;"
                       class="axil-btn btn-bg-primary"
                       (click)="addCart(product)"
                       >Thêm vào giỏ hàng</a
+                    >
+                  </li>
+                  <li *ngIf="selectedSize?.isActive == 0" class="add-to-cart">
+                    <a
+                      href="javascript:;"
+                      class="axil-btn btn-bg-primary background-disabled"
+                      style="cursor: not-allowed"
+                      >Chưa mở bán</a
                     >
                   </li>
                   <!-- <li class="wishlist">
