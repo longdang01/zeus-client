@@ -59,6 +59,7 @@ export class CheckoutComponent implements OnInit {
 
   // purchase
   purchase = () => {
+
     if(this.cartDetails.length == 0) {
       alert("Chưa có sản phẩm chọn mua")
       return;
@@ -77,6 +78,46 @@ export class CheckoutComponent implements OnInit {
       cartDetails: this.cartDetails
     }
 
+    if(this.selectedPayment.isActive == 2 ||this.selectedPayment.isActive == 3 ) {
+      alert("Chưa hoạt động")
+      return;
+      // paid
+      this.postOrders.isPaid = 1;
+
+      this.paymentService.checkout(this.postOrders)
+      .subscribe({
+        next: (res) => {
+          window.open(res.url, '_blank');
+          this.createOrders();
+        },
+        error: (err) => {
+          alert(err.message)
+          // console.clear();
+        }
+      });
+    }
+
+    if(this.selectedPayment.isActive == 0 || this.selectedPayment.isActive == 1) {
+     this.createOrders();
+    }
+
+    // this.ordersService.create(this.postOrders)
+    //   .subscribe({
+    //     next: (res) => {
+    //       this.searchCart();
+    //       alert("Bạn đã đặt hàng thành công!");
+    //       this.ngZone.run(() => this.router.navigateByUrl('/my-account/orders'))
+    //       // this.refreshTotalCart();
+    //     },
+    //     error: (err) => {
+    //       alert(err.message)
+    //       console.clear();
+    //     }
+    //   });
+  }
+
+  // create orders
+  createOrders = () => {
     this.ordersService.create(this.postOrders)
       .subscribe({
         next: (res) => {

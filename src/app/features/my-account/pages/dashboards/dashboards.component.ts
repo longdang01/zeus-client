@@ -22,6 +22,7 @@ export class DashboardsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   getMe() {
     this.userService.getMe()
     .subscribe((res) => {

@@ -42,14 +42,17 @@
         (click)="handleUi()"
         ><i class="fas fa-home"></i>Địa Chỉ Nhận Hàng</a
       >
-      <!-- <a
-          class="nav-item nav-link"
-          data-bs-toggle="tab"
-          href="#nav-account"
-          role="tab"
-          aria-selected="false"
-          ><i class="fas fa-user"></i>Account Details</a
-        > -->
+      <a
+        class="nav-item nav-link"
+        data-bs-toggle="tab"
+        href="#nav-account"
+        role="tab"
+        aria-selected="false"
+        routerLink="information"
+        routerLinkActive="active"
+        (click)="handleUi()"
+        ><i class="fas fa-user"></i>Thông tin tài khoản</a
+      >
       <a class="nav-item nav-link" href="javascript:;" (click)="logout()"
         ><i class="fal fa-sign-out"></i>Đăng Xuất</a
       >

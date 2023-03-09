@@ -27,3 +27,8 @@ th {
   margin-top: 10px;
   padding: 5px;
 }
+
+.btn-updateCartDetail.background-disabled {
+  background: grey !important;
+  border-color: grey !important;
+}

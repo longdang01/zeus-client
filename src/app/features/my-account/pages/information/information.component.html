@@ -1,0 +1,83 @@
+<div class="col-lg-9">
+  <div class="axil-dashboard-account">
+    <form class="account-details-form">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Họ và tên</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="customer.customerName"
+              name="customerName"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="customer!.phone"
+              name="phone"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group mb--40">
+            <label>Email</label>
+            <input
+              type="email"
+              class="form-control"
+              [(ngModel)]="customer!.email"
+              name="email"
+            />
+            <!-- <select class="select2">
+              <option value="1">United Kindom (UK)</option>
+              <option value="1">United States (USA)</option>
+              <option value="1">United Arab Emirates (UAE)</option>
+              <option value="1">Australia</option>
+            </select>
+            <p class="b3 mt--10">
+              This will be how your name will be displayed in the account
+              section and in reviews
+            </p> -->
+          </div>
+        </div>
+        <div class="col-12">
+          <!-- <h5 class="title">Password Change</h5>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              class="form-control"
+              value="123456789101112131415"
+            />
+          </div>
+          <div class="form-group">
+            <label>New Password</label>
+            <input type="password" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input type="password" class="form-control" />
+          </div> -->
+          <div class="form-group mb--0">
+            <input
+              type="button"
+              class="axil-btn"
+              value="Cập nhật thông tin"
+              style="
+                font-weight: bold;
+                background: var(--color-primary);
+                color: #fff;
+              "
+              (click)="updateCustomerInfo()"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

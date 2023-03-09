@@ -400,10 +400,18 @@
     <div class="card-footer">
       <div style="text-align: end">
         <button
+          *ngIf="selectedSize?.isActive == 1"
           class="btn btn-primary btn-updateCartDetail sidebar-close"
           (click)="updateCartDetail(cartDetail)"
         >
           Cập nhật
+        </button>
+        <button
+          class="btn btn-primary btn-updateCartDetail sidebar-close background-disabled"
+          style="cursor: not-allowed"
+          *ngIf="selectedSize?.isActive == 0"
+        >
+          Chưa mở bán
         </button>
       </div>
     </div>

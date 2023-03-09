@@ -13,12 +13,24 @@ export class PaymentService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     })
   }
   
   constructor(private httpClient: HttpClient) {}
   
+  // checkout
+  checkout(data: any): Observable<any> {
+    const apiUrl = `${this.API_URL}/checkout`;
+    return this.httpClient.post(apiUrl, data, this.httpOptions)
+  }
+
+  // callback
+  callback() {
+    const apiUrl = `${this.API_URL}/vnpay/callback`;
+    return this.httpClient.get(apiUrl)
+  }
+
   // get
   get() {
     const apiUrl = `${this.API_URL}/`;

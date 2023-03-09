@@ -90,7 +90,7 @@ export class HeaderComponent implements OnInit {
     if(customerId) {
       this.cartService.search({customer: customerId}).subscribe((res: any) => {
         this.cart = res;
-        this.totalCarts = res.cartDetails.length;
+        this.totalCarts = res ? res.cartDetails.length : 0;
       });   
     }
   }
